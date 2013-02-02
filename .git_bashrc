@@ -1,0 +1,74 @@
+#############################################
+# The place for all things bash/git
+# Originally written by the venerable Estani
+#############################################
+
+alias gll="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+
+function ginfo() {
+
+    if [ -n "$(git symbolic-ref HEAD 2> /dev/null)" ]; then
+        # print informations
+        echo "git repo overview"
+        echo "-----------------"
+        echo
+
+        # print all remotes and thier details
+        for remote in $(git remote show); do
+            echo $remote:
+            git remote show $remote
+            echo
+        done
+
+        # print status of working repo
+        echo "status:"
+        if [ -n "$(git status -s 2> /dev/null)" ]; then
+            git status -s
+        else
+            echo "working directory is clean"
+        fi
+
+        # print at least 5 last log entries
+        echo 
+        echo "log:"
+        git log -5 --oneline
+        echo 
+
+    else
+        echo "you're currently not in a git repository"
+
+    fi
+}
+
+GIT_THEME_PROMPT_DIRTY='*'
+
+#complex construct to have colors properly. I know...
+
+#hash a string into an useful color
+hash_color() {
+    local val="$*"
+    val="${val//\//_}"
+    local color=$(($(cksum<<<"$*"|cut -f1 -d' ')%210+22))
+    echo $color
+}
+
+git_prompt_info() { 
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || return;
+    echo -e "$(git_remote_dist)$(parse_git_dirty)"
+}
+
+#is branch dirty?
+parse_git_dirty() {
+    if [[ -n "$(git status --porcelain --ignore-submodules 2> /dev/null)" ]]; then
+    #if [[ $(git diff --shortstat 2> /dev/null ) != "" ]]; then
+        echo -e "$GIT_THEME_PROMPT_DIRTY"
+    else
+        echo -e "$GIT_THEME_PROMPT_CLEAN"
+    fi
+}
+
+#distance to remote commit
+git_remote_dist() {
+    local dist=$(git branch -v | sed -n 's/\* '$(git symbolic-ref HEAD | cut -d/ -f3)' [^[]*\[\([^]]*\)\].*/\1/p' | sed 's/ahead /+/;s/behind /-/') 2>/dev/null || return
+    [[ "$dist" ]] && echo "${dist}"
+}
