@@ -61,7 +61,6 @@ setup_dot_bash_files() {
 
 revert_homedir() {
     [ ! -e .git ] && echo "Sorry this is not a git repo" && exit 1
-    
 }
 
 setup_dot_bash_files $@
