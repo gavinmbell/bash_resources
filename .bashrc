@@ -132,5 +132,3 @@ complete -o default -o nospace -F _git_checkout gco
 complete -o default -o nospace -F _git_checkout gls
 
 export PYTHONSTARTUP=~/.pythonrc
-
-export MARTIN_VM='/Users/bell51/Documents/Virtual Machines.localized/ESG Ubuntu 64-bit.vmwarevm/ESG Ubuntu 64-bit.vmx'
