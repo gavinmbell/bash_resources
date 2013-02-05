@@ -16,6 +16,7 @@
 #   Description:
 #
 #*****************************************************************
+source $HOME/.bash_local >& /dev/null
 
 [ -z "$PS1" ] && return
 
