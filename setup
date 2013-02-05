@@ -63,4 +63,6 @@ revert_homedir() {
     [ ! -e .git ] && echo "Sorry this is not a git repo" && exit 1
 }
 
+#TODO - implement revert_homedir function
+#TODO - write arg code to trigger revert if necessary
 setup_dot_bash_files $@
