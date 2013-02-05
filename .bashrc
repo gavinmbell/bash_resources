@@ -16,7 +16,6 @@
 #   Description:
 #
 #*****************************************************************
-source $HOME/.bash_local >& /dev/null
 
 [ -z "$PS1" ] && return
 
@@ -132,3 +131,5 @@ complete -o default -o nospace -F _git_checkout gco
 complete -o default -o nospace -F _git_checkout gls
 
 export PYTHONSTARTUP=~/.pythonrc
+
+source $HOME/.bash_local >& /dev/null
