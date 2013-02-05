@@ -1,9 +1,31 @@
 #!/bin/bash
 
 #sets up dot bash files in your home directory
+DEBUG=0
+DRY_RUN=0
 
 homedir=${homedir:-${HOME:?"HOME environment var must be set!!!!"}}
 
+programs_to_chec_for=(fortune, uname, uptime)
+
+quick_checks() {
+
+    local oops_count=0
+    for program in ${programs_to_check_for[@]}; do
+        ${program} >& /dev/null
+        [ $? != 0 ] && ((oops_count++)) && echo "Couldn't find ${program}"
+    done
+    if ((oops_count > 0)); then
+        You may want to install the missed programs with...
+        if uname -a | grep -q Darwin; then
+            echo "MacPorts: https://www.macports.org/install.php"
+            echo "> port install <program>"
+        else
+            echo "Please install the missed programs for optimum use"
+        fi
+}
+
+# Utility "private" method
 _readlinkf() {
     # This is a portable implementation of GNU's "readlink -f" in
     # bash/zsh, following symlinks recursively until they end in a
@@ -49,13 +71,14 @@ setup_dot_bash_files() {
         if [ "$(_readlinkf ${dot_file})" == "$(_readlinkf ${homedir}/${dot_file} | tail -n 1)" ]; then
             echo "[OK] (nothing to do already linked)"
         else
-            ((DEBUG)) && echo "[ -e ${homedir}/${dot_file} ]  && mv -v ${homedir}/${dot_file}{,.bak}"
-            [ -e ${homedir}/${dot_file} ] && mv -v ${homedir}/${dot_file}{,.bak}
-            ((DEBUG)) && echo "ln -s $(_readlinkf ${dot_file}) ${homedir}/${dot_file}"
-            ln -s $(_readlinkf ${dot_file}) ${homedir}/${dot_file}
-            [ $? != 0 ] && echo "ERROR: problem linking ${dot_file}" || echo " linked file... [OK] "
+            ((DEBUG|DRY_RUN)) && echo "[ -e ${homedir}/${dot_file} ]  && mv -v ${homedir}/${dot_file}{,.bak}"
+            ((! DRY_RUN)) && [ -e ${homedir}/${dot_file} ] && mv -v ${homedir}/${dot_file}{,.bak}
+            ((DEBUG||DRY_RUN)) && echo "ln -s $(_readlinkf ${dot_file}) ${homedir}/${dot_file}"
+            if ((! DRY_RUN)); then
+                ln -s $(_readlinkf ${dot_file}) ${homedir}/${dot_file}
+                [ $? != 0 ] && echo "ERROR: problem linking ${dot_file}" || echo " linked file... [OK] "
+            fi
         fi
-        
     done
 }
 
@@ -65,4 +88,5 @@ revert_homedir() {
 
 #TODO - implement revert_homedir function
 #TODO - write arg code to trigger revert if necessary
+quick_checks
 setup_dot_bash_files $@

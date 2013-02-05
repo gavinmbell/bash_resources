@@ -118,7 +118,6 @@ export PATH=$PATH:$JAVA_HOME/bin:$ANT_HOME/bin:$M2_HOME/bin:$GROOVY_HOME/bin:$JR
 
 export CLASS_ROOT=$HOME/classes
 export JAR_PATH=$HOME/classes/jars
-#export JAR_PATH=$HOME/projects/esg-node/lib
 
 export CLASSPATH=.:$CLASS_ROOT:$(find $JAR_PATH | xargs | perl -pe 's/ /:/g')
 
