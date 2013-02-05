@@ -1,0 +1,67 @@
+#!/bin/bash
+
+#sets up dot bash files in your home directory
+
+homedir=${homedir:-${HOME:?"HOME environment var must be set!!!!"}}
+
+_readlinkf() {
+    # This is a portable implementation of GNU's "readlink -f" in
+    # bash/zsh, following symlinks recursively until they end in a
+    # file, and will print the full dereferenced path of the specified
+    # file even if the file isn't a symlink.
+    #
+    # Loop detection exists, but only as an abort after passing a
+    # maximum length.
+
+    local start_dir=$(pwd)
+    local file=${1}
+    cd $(dirname ${file})
+    file=$(basename ${file})
+
+    # Iterate down symlinks.  If we exceed a maximum number symlinks, assume that
+    # we're looped and die horribly.
+    local maxlinks=20
+    local count=0
+    local current_dir
+    while [ -L "${file}" ] ; do
+        file=$(readlink ${file})
+        cd $(dirname ${file})
+        file=$(basename ${file})
+        ((count++))
+        if (( count > maxlinks )) ; then
+            current_dir=$(pwd -P)
+            echo "CRITICAL FAILURE[4]: symlink loop detected on ${current_dir}/${file}"
+            cd ${start_dir}
+            exit ${count}
+        fi
+    done
+    current_dir=$(pwd -P)
+    echo "${current_dir}/${file}"
+    cd ${start_dir}
+}
+
+setup_dot_bash_files() {
+    [ ! -e .git ] && echo "Sorry this is not a git repo" && exit 1
+    
+    for dot_file in $(ls -a | grep bash); do
+        echo -n "setting up $dot_file... "
+        #check if the file exists already
+        if [ "$(_readlinkf ${dot_file})" == "$(_readlinkf ${homedir}/${dot_file} | tail -n 1)" ]; then
+            echo "[OK] (nothing to do already linked)"
+        else
+            ((DEBUG)) && echo "[ -e ${homedir}/${dot_file} ]  && mv -v ${homedir}/${dot_file}{,.bak}"
+            [ -e ${homedir}/${dot_file} ] && mv -v ${homedir}/${dot_file}{,.bak}
+            ((DEBUG)) && echo "ln -s $(_readlinkf ${dot_file}) ${homedir}/${dot_file}"
+            ln -s $(_readlinkf ${dot_file}) ${homedir}/${dot_file}
+            [ $? != 0 ] && echo "ERROR: problem linking ${dot_file}" || echo " linked file... [OK] "
+        fi
+        
+    done
+}
+
+revert_homedir() {
+    [ ! -e .git ] && echo "Sorry this is not a git repo" && exit 1
+    
+}
+
+setup_dot_bash_files $@
