@@ -73,9 +73,19 @@ export CDPATH=.:..:$HOME/:$PROJECT/
 
 source ~/.git_bashrc
 #-------------------------------------------
+RED="\[\033[00;31m\]"
+GREEN="\[\033[00;32m\]"
+BLUE="\[\033[00;34m\]"
+GOLD="\[\033[00;33m\]"
+NOCOLOR="\[\033[00;00m\]"
+
 case "$TERM" in
-    xterm | xterm-color)
-	PS1='${debian_chroot:+($debian_chroot)}\[\033[00;33m\]\u@\h\[\033[00m\]:[\033[00;31m\]\W\[\033[00m\]]$(__git_ps1 ":[\033[00;32m\]%s$(__git_prompt_info)\033[00m\]]"):[\!]> '
+    xterm | xterm-color) 
+        ## Charles Doutriaux 2013-02-06
+	## Commenting out gives weird character on centos and terminal length issues
+	##PS1='${debian_chroot:+($debian_chroot)}\[\033[00;33m\]\u@\h\[\033[00m\]:[\033[00;31m\]\W\[\033[00m\]]$(__git_ps1 ":[\033[00;32m\]%s$(__git_prompt_info)\033[00m\]]"):[\!]> '
+        PS1='${debian_chroot:+($debian_chroot)}'${BLUE}'\u@\h'${NOCOLOR}':['${RED}'\W'${NOCOLOR}']:'${GREEN}'$(__git_ps1 "[%s$(__git_prompt_info)]")'${NOCOLOR}'['${GOLD}'\!'${NOCOLOR}']>'
+
 	PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007";history -a'
 	;;
     *)
