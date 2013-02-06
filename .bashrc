@@ -124,5 +124,6 @@ complete -o default -o nospace -F _git_checkout gls
 
 export PYTHONSTARTUP=~/.pythonrc
 
+BANNER_FONT="doom"
 source $HOME/.bash_local >& /dev/null
 show_welcome

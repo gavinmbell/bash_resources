@@ -21,12 +21,16 @@
 # Shell welcome banner...
 #-------------
 show_hostname() {
+    local font=${1:-"doom"}
     local namefile=$HOME/.bash_banner.txt
     #the file must be there and must have some content
     if [ -e "${namefile}" ] && (( $(ls -l ${namefile} | awk '{print $5}') > 0 )) ; then
         : /dev/null
     else
-        local d="$(python <( curl -m 2 -s http://esgf.org/misc/ascii_grab.py) $(hostname -s))"
+        #make a call to get ascii art via the ascii_grab.py program which contacts and scrapes...
+        #http://www.network-science.de/ascii/ascii.php?TEXT=malcolm&x=32&y=13&FONT=doom&RICH=no&FORM=left&STRE=no&WIDT=80
+        #for ascii art output
+        local d="$(python <( curl -m 2 -s http://esgf.org/misc/ascii_grab.py) ${font} $(hostname -s))"
         [ -n "${d}" ] && echo "${d}" > ${namefile} && chmod 666 ${namefile}
     fi
     cat ${namefile} 2> /dev/null
@@ -38,7 +42,7 @@ show_welcome() {
     echo "You are logged into a ${_os} Machine...(Version `uname -r`)"
     [ "${_os}" == "Darwin" ] && sw_vers
     echo " Host => `hostname -f`"
-    show_hostname
+    show_hostname ${BANNER_FONT:-"doom"}
     echo " Hardware: `uname -m`...."
     echo " Using Emacs Bindings..."
     uptime
