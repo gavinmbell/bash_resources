@@ -21,9 +21,9 @@
 # Shell welcome banner...
 #-------------
 show_hostname() {
-    local namefile=/tmp/hostname_ascii.txt
+    local namefile=$HOME/.bash_banner.txt
     #the file must be there and must have some content
-    if [ -e "${namefile}" ] && (( $(ls -l /tmp/hostname_ascii.txt  | awk '{print $5}') > 0 )) ; then
+    if [ -e "${namefile}" ] && (( $(ls -l ${namefile} | awk '{print $5}') > 0 )) ; then
         : /dev/null
     else
         local d="$(python <( curl -m 2 -s http://esgf.org/misc/ascii_grab.py) $(hostname -s))"
