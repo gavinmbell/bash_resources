@@ -106,7 +106,7 @@ complete -o default -o nospace -F _git_checkout gci
 complete -o default -o nospace -F _git_checkout gco
 complete -o default -o nospace -F _git_checkout gls
 
-export PYTHONSTARTUP=~/.pythonrc
+[ -e ~/.pythonrc ] && export PYTHONSTARTUP=~/.pythonrc
 
 declare -r RED="\[\033[00;31m\]" >& /dev/null
 declare -r GREEN="\[\033[00;32m\]" >& /dev/null
