@@ -23,6 +23,7 @@ quick_checks() {
         else
             echo "Please install the missed programs for optimum use"
         fi
+    fi
 }
 
 # Utility "private" method
