@@ -24,7 +24,7 @@ show_hostname() {
     local font=${1:-"doom"}
     local namefile=$HOME/.bash_banner.txt
     #the file must be there and must have some content
-    if [ -e "${namefile}" ] && (( $(ls -l ${namefile} | awk '{print $5}') > 0 )) ; then
+    if [ -e "${namefile}" ] && (( $(\ls -l ${namefile} | awk '{print $5}') > 0 )) ; then
         : /dev/null
     else
         #make a call to get ascii art via the ascii_grab.py program which contacts and scrapes...
