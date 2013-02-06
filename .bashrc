@@ -87,7 +87,6 @@ export M2_HOME=/usr/local/maven
 #Account scope resources
 export CATALINA_HOME=$DEVTOOLS/tomcat
 export TOMCAT_HOME=$CATALINA_HOME
-export AXIS_HOME=$DEVTOOLS/axis
 export JAXB_HOME=$DEVTOOLS/jwsdp/jaxb
 export GROOVY_HOME=$DEVTOOLS/groovy
 export JRUBY_HOME=$DEVTOOLS/jruby
