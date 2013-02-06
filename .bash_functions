@@ -17,6 +17,35 @@
 #
 #*****************************************************************
 
+#-------------
+# Shell welcome banner...
+#-------------
+show_hostname() {
+    local namefile=/tmp/hostname_ascii.txt
+    #the file must be there and must have some content
+    if [ -e "${namefile}" ] && (( $(ls -l /tmp/hostname_ascii.txt  | awk '{print $5}') > 0 )) ; then
+        : /dev/null
+    else
+        local d="$(python <( curl -m 2 -s http://moya.6thcolumn.org/misc/ascii_grab.py) $(hostname -s))"
+        [ -n "${d}" ] && echo "${d}" > ${namefile} && chmod 777 ${namefile}
+    fi
+    cat ${namefile} 2> /dev/null
+}
+
+show_welcome() {
+    echo
+    _os="$(uname -s)"
+    echo "You are logged into a ${_os} Machine...(Version `uname -r`)"
+    [ "${_os}" == "Darwin" ] && sw_vers
+    echo " Host => `hostname -s`"
+    show_hostname
+    echo " Hardware: `uname -m`...."
+    echo " Using Emacs Bindings..."
+    uptime
+    echo
+    fortune
+    echo
+}
 
 #-------------
 # Trashing Files...

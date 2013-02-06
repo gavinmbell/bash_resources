@@ -64,28 +64,6 @@ export DEVTOOLS=${HOME}/devtools
 
 export CDPATH=.:..:$HOME/:$PROJECT/
 
-#-------------------------------------------
-echo 
-echo "You are logged into a `uname -s` Machine...(Version `uname -r`)"
-    sw_vers
-echo "Host => `uname -n`"
-printf "
-                  _           _           
-                 | |         | |          
-  _ __ ___   __ _| | ___ ___ | |_ __ ___  
- | \'_ \` _ \ / _\` | |/ __/ _ \| | \'_ \` _ \ 
- | | | | | | (_| | | (_| (_) | | | | | | |
- |_| |_| |_|\__,_|_|\___\___/|_|_| |_| |_|
-                                          
-"
-echo
-echo " Hardware: `uname -m`...."
-echo " Using Emacs Bindings..."
-uptime
-echo 
-#fortune
-#echo 
-
 source ~/.git_bashrc
 #-------------------------------------------
 case "$TERM" in
@@ -132,3 +110,4 @@ complete -o default -o nospace -F _git_checkout gls
 export PYTHONSTARTUP=~/.pythonrc
 
 source $HOME/.bash_local >& /dev/null
+show_welcome
