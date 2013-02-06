@@ -147,7 +147,15 @@ case "$TERM" in
 	## Commenting out gives weird character on centos and terminal length issues
 	##PS1='${debian_chroot:+($debian_chroot)}\[\033[00;33m\]\u@\h\[\033[00m\]:[\033[00;31m\]\W\[\033[00m\]]$(__git_ps1 ":[\033[00;32m\]%s$(__git_prompt_info)\033[00m\]]"):[\!]> '
 	if [ -z "${_PS1}" ]; then
-          PS1='${debian_chroot:+($debian_chroot)}'${PROMPT_ADDRESS_COLOR:-${GOLD}}'\u@\h'${NOCOLOR}':['${PROMPT_DIR_COLOR:-${RED}}'\W'${NOCOLOR}']:'${PROMPT_GIT_BRANCH_COLOR:-${GREEN}}'$(__git_ps1 "[%s$(__git_prompt_info)]${CLOSE_COLOR}:")'${NOCOLOR}'['${PROMPT_COMMAND_HIST_INDEX_COLOR:-${NOCOLOR}}'\!'${NOCOLOR}']> '
+          PS1='${debian_chroot:+($debian_chroot)}'\
+${PROMPT_ADDRESS_COLOR:-${GOLD}}'\u@\h'${CLOSE_COLOR}\
+${NOCOLOR}':['${CLOSE_COLOR}\
+${PROMPT_DIR_COLOR:-${RED}}'\W'${CLOSE_COLOR}\
+${NOCOLOR}']:'${CLOSE_COLOR}\
+${PROMPT_GIT_BRANCH_COLOR:-${GREEN}}'$(__git_ps1 "[%s$(__git_prompt_info)]${CLOSE_COLOR}:")'\
+${NOCOLOR}'['${CLOSE_COLOR}\
+${PROMPT_COMMAND_HIST_INDEX_COLOR:-${NOCOLOR}}'\!'${CLOSE_COLOR}\
+${NOCOLOR}']> '${CLOSE_COLOR}
 	  _PS1=${PS1}
 	fi
 	PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007";history -a'
