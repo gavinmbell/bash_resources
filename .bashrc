@@ -71,29 +71,6 @@ export DEVTOOLS=${HOME}/devtools
 
 export CDPATH=.:..:$HOME/:$PROJECT/
 
-source ~/.git_bashrc
-#-------------------------------------------
-RED="\[\033[00;31m\]"
-GREEN="\[\033[00;32m\]"
-BLUE="\[\033[00;34m\]"
-GOLD="\[\033[00;33m\]"
-NOCOLOR="\[\033[00;00m\]"
-
-case "$TERM" in
-    xterm | xterm-color) 
-        ## Charles Doutriaux 2013-02-06
-	## Commenting out gives weird character on centos and terminal length issues
-	##PS1='${debian_chroot:+($debian_chroot)}\[\033[00;33m\]\u@\h\[\033[00m\]:[\033[00;31m\]\W\[\033[00m\]]$(__git_ps1 ":[\033[00;32m\]%s$(__git_prompt_info)\033[00m\]]"):[\!]> '
-        PS1='${debian_chroot:+($debian_chroot)}'${BLUE}'\u@\h'${NOCOLOR}':['${RED}'\W'${NOCOLOR}']:'${GREEN}'$(__git_ps1 "[%s$(__git_prompt_info)]")'${NOCOLOR}'['${GOLD}'\!'${NOCOLOR}']>'
-
-	PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007";history -a'
-	;;
-    *)
-	PS1='${debian_chroot:+($debian_chroot)}\u@\h:[\W]:[\!]> '
-	;;
-esac
-#-----------------------------
-
 export ESGF_SITE_ROOT=$PROJECT/esgf-site
 
 #System-wide resources....
@@ -124,10 +101,6 @@ if [ -e "${JAR_PATH}" ]; then
     export CLASSPATH=$CLASSPATH:$(find $JAR_PATH | xargs | perl -pe 's/ /:/g')
 fi
 
-#-----------------------------
-source ~/.bash_aliases
-source ~/.bash_functions
-#-----------------------------
 complete -o default -o nospace -F _git_checkout gci
 complete -o default -o nospace -F _git_checkout gco
 complete -o default -o nospace -F _git_checkout gls
@@ -135,5 +108,41 @@ complete -o default -o nospace -F _git_checkout gls
 export PYTHONSTARTUP=~/.pythonrc
 
 BANNER_FONT="doom"
-source $HOME/.bash_local >& /dev/null
+
+declare -r RED="\[\033[00;31m\]"
+declare -r GREEN="\[\033[00;32m\]"
+declare -r BLUE="\[\033[00;34m\]"
+declare -r GOLD="\[\033[00;33m\]"
+declare -r NOCOLOR="\[\033[00;00m\]"
+
+
+PROMPT_ADDRESS_COLOR=
+PROMPT_DIR_COLOR=
+PROMPT_GIT_BRANCH_COLOR=
+PROMPT_COMMAND_HIST_INDEX_COLOR=
+
+#-----------------------------
+source ${HOME:-~}/.bash_aliases
+source ${HOME:-~}/.bash_functions
+source ${HOME:-~}/.git_bashrc
+source ${HOME:-~}/.bash_local >& /dev/null
+#-----------------------------
+
+#-----------------------------
+# PROMPT
+#-----------------------------
+case "$TERM" in
+    xterm | xterm-color) 
+        ## Charles Doutriaux 2013-02-06
+	## Commenting out gives weird character on centos and terminal length issues
+	##PS1='${debian_chroot:+($debian_chroot)}\[\033[00;33m\]\u@\h\[\033[00m\]:[\033[00;31m\]\W\[\033[00m\]]$(__git_ps1 ":[\033[00;32m\]%s$(__git_prompt_info)\033[00m\]]"):[\!]> '
+        PS1='${debian_chroot:+($debian_chroot)}'${PROMPT_ADDRESS_COLOR:-${GOLD}}'\u@\h'${NOCOLOR}':['${PROMPT_DIR_COLOR:-${RED}}'\W'${NOCOLOR}']:'${PROMPT_GIT_BRANCH_COLOR:-${GREEN}}'$(__git_ps1 "[%s$(__git_prompt_info)]")'${NOCOLOR}'['${PROMPT_COMMAND_HIST_INDEX_COLOR:-${NOCOLOR}}'\!'${NOCOLOR}']>'
+
+	PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007";history -a'
+	;;
+    *)
+	PS1='${debian_chroot:+($debian_chroot)}\u@\h:[\W]:[\!]> '
+	;;
+esac
+#-----------------------------
 show_welcome
