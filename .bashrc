@@ -57,7 +57,7 @@ export LS_COLORS="no=00:fi=00:di=33:ln=00;36:pi=40;33:so=00;35:bd=40;33;00:cd=40
 #-----
 
 export GREP_OPTIONS='--color=auto' 
-export GREP_COLOR='00;38;5;226'
+export GREP_COLOR='01;36;*'
 
 export TEMP="/tmp/`whoami`"
 export TMP=${TEMP}
