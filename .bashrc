@@ -38,8 +38,8 @@ export HISTSIZE=1000000
 export HISTFILESIZE=1000000
 export TMOUT=0
 
-export BASH_COMPLETION=/etc/bash_completion >& /dev/null
-export BASH_COMPLETION_DIR=/etc/bash_completion.d >& /dev/null
+export BASH_COMPLETION=${HOME:-~}/bash_completion >& /dev/null
+export BASH_COMPLETION_DIR=${HOME:-~}/bash_completion.d >& /dev/null
 source $BASH_COMPLETION >& /dev/null
 source $BASH_COMPLETION_DIR/* >& /dev/null
 export PATH=.:~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/git/bin:/sw/bin:/bin:/usr/bin:/usr/sbin:/sbin:/usr/X11R6/bin:/usr/texbin

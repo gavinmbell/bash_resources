@@ -39,8 +39,8 @@ fi
 
 # Alter the following to reflect the location of this file.
 #
-[ -n "$BASH_COMPLETION" ] || BASH_COMPLETION=${BASHGITREPO}/bash_completion
-[ -n "$BASH_COMPLETION_DIR" ] || BASH_COMPLETION_DIR=${BASHGITREPO}/bash_completion.d
+[ -n "$BASH_COMPLETION" ] || BASH_COMPLETION=${HOME:-~}/.bash_completion
+[ -n "$BASH_COMPLETION_DIR" ] || BASH_COMPLETION_DIR=${HOME:-~}/bash_completion.d
 #readonly BASH_COMPLETION BASH_COMPLETION_DIR
 
 # Set a couple of useful vars
