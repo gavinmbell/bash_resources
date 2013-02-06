@@ -96,8 +96,13 @@ export PATH=$PATH:$JAVA_HOME/bin:$ANT_HOME/bin:$M2_HOME/bin:$GROOVY_HOME/bin:$JR
 
 export CLASS_ROOT=$HOME/classes
 export JAR_PATH=$HOME/classes/jars
-
-export CLASSPATH=.:$CLASS_ROOT:$(find $JAR_PATH | xargs | perl -pe 's/ /:/g')
+export CLASSPATH=.
+if [ -e "${CLASS_ROOT}" ]; then
+    export CLASSPATH=.:$CLASS_ROOT
+fi
+if [ -e "${JAR_PATH}" ]; then
+    export CLASSPATH=$CLASSPATH:$(find $JAR_PATH | xargs | perl -pe 's/ /:/g')
+fi
 
 #-----------------------------
 source ~/.bash_aliases
