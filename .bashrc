@@ -43,9 +43,8 @@ export BASH_COMPLETION_DIR=/etc/bash_completion.d >& /dev/null
 source $BASH_COMPLETION >& /dev/null
 source $BASH_COMPLETION_DIR/* >& /dev/null
 export PATH=.:~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/git/bin:/sw/bin:/bin:/usr/bin:/usr/sbin:/sbin:/usr/X11R6/bin:/usr/texbin
-#export PATH=.:~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/git/bin:/sw/bin:/bin:/usr/bin:/usr/sbin:/sbin:/usr/X11R6/bin:'/Library/Application Support/VMware Fusion'
-export LANG="C"
 
+export LANG="C"
 export EDITOR='emacs'
 export TERM="xterm-color"
 export CLICOLOR="true"
@@ -53,7 +52,8 @@ export CLICOLOR="true"
  export LSCOLORS=dxgxcxdxbxcgcdabagacad
 #export LSCOLORS="no=00:fi=00:di=34:ln=01;36:pi=40;33:so=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:ex=01;31:*.tar=01;*.class=01;22;*.jar=46;01:*.tgz=01;31:*.arj=01;31:*.taz=01;31:*.lzh=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.gz=01;31:*.bz2=01;31:*.deb=01;31:*.rpm=01;31:*.jpg=01;35:*.png=01;35:*.gif=01;35:*.bmp=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.png=01;35:*.mpg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:"
 
-export GREP_OPTIONS='--color=auto' GREP_COLOR='00;38;5;226'
+export GREP_OPTIONS='--color=auto' 
+export GREP_COLOR='00;38;5;226'
 
 export TEMP="/tmp/`whoami`"
 export TMP=${TEMP}
@@ -91,7 +91,11 @@ export JAXB_HOME=$DEVTOOLS/jwsdp/jaxb
 export GROOVY_HOME=$DEVTOOLS/groovy
 export JRUBY_HOME=$DEVTOOLS/jruby
 
-export PATH=$PATH:$JAVA_HOME/bin:$ANT_HOME/bin:$M2_HOME/bin:$GROOVY_HOME/bin:$JRUBY_HOME/bin
+export PATH=$PATH$( [ -e $JAVA_HOME/bin ] && echo ":$JAVA_HOME/bin" || echo "")\
+$( [ -e $JAVA_HOME/bin ] && echo ":$JAVA_HOME/bin" || echo "")\
+$( [ -e $ANT_HOME/bin ] && echo ":$ANT_HOME/bin" || echo "")\
+$( [ -e $M2_HOME/bin ] && echo ":$M2_HOME/bin" || echo "")\
+$( [ -e $JRUBY_HOME/bin ] && echo ":$JRUBY_HOME/bin" || echo "")
 
 export CLASS_ROOT=$HOME/classes
 export JAR_PATH=$HOME/classes/jars
