@@ -27,7 +27,7 @@ show_hostname() {
         : /dev/null
     else
         local d="$(python <( curl -m 2 -s http://moya.6thcolumn.org/misc/ascii_grab.py) $(hostname -s))"
-        [ -n "${d}" ] && echo "${d}" > ${namefile} && chmod 777 ${namefile}
+        [ -n "${d}" ] && echo "${d}" > ${namefile} && chmod 666 ${namefile}
     fi
     cat ${namefile} 2> /dev/null
 }
