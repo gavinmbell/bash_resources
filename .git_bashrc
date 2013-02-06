@@ -5,8 +5,7 @@
 
 alias gll="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 
-function ginfo() {
-
+ginfo() {
     if [ -n "$(git symbolic-ref HEAD 2> /dev/null)" ]; then
         # print informations
         echo "git repo overview"
@@ -33,17 +32,12 @@ function ginfo() {
         echo "log:"
         git log -5 --oneline
         echo 
-
     else
         echo "you're currently not in a git repository"
-
     fi
 }
 
-GIT_THEME_PROMPT_DIRTY='*'
-
 #complex construct to have colors properly. I know...
-
 #hash a string into an useful color
 hash_color() {
     local val="$*"
@@ -52,13 +46,26 @@ hash_color() {
     echo $color
 }
 
-git_prompt_info() { 
-    ref=$(git symbolic-ref HEAD 2> /dev/null) || return;
-    echo -e "$(git_remote_dist)$(parse_git_dirty)"
+__git_ps1() {
+    local b="$(git symbolic-ref HEAD 2>/dev/null)";
+    if [ -n "$b" ]; then
+        if [ -n "$1" ]; then
+            printf "$1" "${b##refs/heads/}";
+        else
+            printf " (%s)" "${b##refs/heads/}";
+        fi;
+    fi
+}
+
+#distance to remote commit
+__git_remote_dist() {
+    local dist=$(git branch -v | sed -n 's/\* '$(git symbolic-ref HEAD | cut -d/ -f3)' [^[]*\[\([^]]*\)\].*/\1/p' | sed 's/ahead /+/;s/behind /-/') 2>/dev/null || return
+    [[ "$dist" ]] && echo "${dist}"
 }
 
 #is branch dirty?
-parse_git_dirty() {
+GIT_THEME_PROMPT_DIRTY='*'
+__parse_git_dirty() {
     if [[ -n "$(git status --porcelain --ignore-submodules 2> /dev/null)" ]]; then
     #if [[ $(git diff --shortstat 2> /dev/null ) != "" ]]; then
         echo -e "$GIT_THEME_PROMPT_DIRTY"
@@ -67,8 +74,7 @@ parse_git_dirty() {
     fi
 }
 
-#distance to remote commit
-git_remote_dist() {
-    local dist=$(git branch -v | sed -n 's/\* '$(git symbolic-ref HEAD | cut -d/ -f3)' [^[]*\[\([^]]*\)\].*/\1/p' | sed 's/ahead /+/;s/behind /-/') 2>/dev/null || return
-    [[ "$dist" ]] && echo "${dist}"
+__git_prompt_info() { 
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || return;
+    echo -e "$(__git_remote_dist)$(__parse_git_dirty)"
 }
