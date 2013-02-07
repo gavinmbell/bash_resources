@@ -1,6 +1,24 @@
 
-Keeping a repo of bash shell setup to keep a consistent bash setup across machines.
+This repo is to help with the setup of an amenable BASH environment.
+I find that often I am on a foriegn machine that I wish I could
+quickly setup.  Keeping this repo of a bash environment setup allows
+me to keep files consistent and quickly configure new environments.
+
 All the bash goodies under one "roof" also included installer (setup) script
 
-(I should have done this a long time ago)
+INSTALLATION:
+
+%> cd ~/
+%> git clone https://github.com/gavinmbell/bash_resources ~/.bash_resources
+%> cd .bash_resources
+%> ./setup
+%> source ~/.bashrc
+
+Type:
+%> src
+
+(smile)
+
+I should have done this a long time ago...
 -gavin
+
