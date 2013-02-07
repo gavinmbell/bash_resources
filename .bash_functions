@@ -224,6 +224,7 @@ show_archive() {
 
 #---
 
+
 find_in_code() {
     pushd ${PROJECT_HOME:=$(pwd)} >& /dev/null
     echo "find . -name \*.cc -o -name \*.h -o -name \*.cpp -o -name \*.hpp -o -name \*.py | xargs grep -i $*"
@@ -231,41 +232,92 @@ find_in_code() {
     popd >& /dev/null
 }
 
-cterm() {
-    /usr/X11R6/bin/xterm -sb -sl 10000 -bg grey8 -fg $* &
+#-------------
+# (private) Utility functions...
+#-------------
+
+_readlinkf() {
+    # This is a portable implementation of GNU's "readlink -f" in
+    # bash/zsh, following symlinks recursively until they end in a
+    # file, and will print the full dereferenced path of the specified
+    # file even if the file isn't a symlink.
+    #
+    # Loop detection exists, but only as an abort after passing a
+    # maximum length.
+
+    local start_dir=$(pwd)
+    local file=${1}
+    cd $(dirname ${file})
+    file=$(basename ${file})
+
+    # Iterate down symlinks.  If we exceed a maximum number symlinks, assume that
+    # we're looped and die horribly.
+    local maxlinks=20
+    local count=0
+    local current_dir
+    while [ -L "${file}" ] ; do
+        file=$(readlink ${file})
+        cd $(dirname ${file})
+        file=$(basename ${file})
+        ((count++))
+        if (( count > maxlinks )) ; then
+            current_dir=$(pwd -P)
+            echo "CRITICAL FAILURE[4]: symlink loop detected on ${current_dir}/${file}"
+            cd ${start_dir}
+            return ${count}
+        fi
+    done
+    current_dir=$(pwd -P)
+    echo "${current_dir}/${file}"
+    cd ${start_dir}
 }
 
-homefiles() {
+#-------------
+# Self updating...
+#-------------
 
-    ls -l /etc/hosts
-    sudo rm /etc/hosts
-    sudo ln -s /etc/hosts.home /etc/hosts
-    ls -l /etc/hosts
+check_for_bash_resources_update() {
+    local bash_file=${HOME:-~}/.bashrc
+    [ ! -L "${bash_file}" ] && echo 'This file is not managed via bash_resources!!! (exiting)' && return 1
+    echo "Inspecting Bash Resources..."
+    bash_file=$(_readlinkf ${bash_file} | tail -n 1)
+    local bash_resources_dir=${bash_file%/*}
+    ((DEBUG)) && echo "Visiting [${bash_resources_dir}]..."
+    pushd ${bash_resources_dir} >& /dev/null
+    if [ $? != 0 ]; then
+        echo "Sorry, could not enter \"${bash_resources_dir}\" :-(" && popd >& /dev/null
+        return 2
+    fi
+    echo "Querying for updates..." && git fetch 2> /dev/null
 
-    #ls -l /etc/fstab
-    #sudo rm /etc/fstab
-    #sudo ln -s /etc/fstab.home /etc/fstab
-    #ls -l /etc/fstab
-}
+    local distance=$(source ${bash_resources_dir}/.git_bashrc && __git_remote_dist)
+    if [ $? != 0 ]; then
+        echo "Sorry, problem getting distance metric... :-(" && popd >& /dev/null 
+        return 0
+    fi
+    [ -z "${distance}" ] && echo "You are up to date :-)" && popd >& /dev/null && return 0
 
-workfiles() {
-    ls -l /etc/hosts
-    sudo rm /etc/hosts
-    sudo ln -s /etc/hosts.cuill /etc/hosts
-    ls -l /etc/hosts
-
-    #ls -l /etc/fstab
-    #sudo rm /etc/fstab
-    #sudo ln -s /etc/fstab.cuill /etc/fstab
-    #ls -l /etc/fstab
-}
-
-dopostlist() {
-    a=$(readlink `which postlist`)
-    b=${a%/*}
-    pushd ${b} >& /dev/null
-    ./postlist
+    local current_branch=$(git symbolic-ref HEAD | cut -d/ -f3)
+    if [ $? != 0 ] || [[ -z "${current_branch}" ]]; then 
+        echo "Sorry, you are not on a branch that can be updated" && popd >& /dev/null 
+        return 3; 
+    fi
+    local remote_branch=$(git branch -vv | sed -n '/\* '${current_branch}'/p' | sed -n 's/[^[]*\[\([^]]*\)\].*/\1/p' | awk -F: '{print $1}')
+    echo "Log:"
+    echo "----------"
+    git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative ${current_branch}..${remote_branch}
+    echo "----------"
+    echo
+    local doit="n"
+    read -e -p "Would you like to update now? [Y/n] " doit
+    if [ "${doit}" = "N" ] || [ "${doit}" = "n" ] || [ "${doit}" = "no" ]; then
+        popd >& /dev/null
+        echo "(aborting)"
+        return 0
+    fi
+    git pull && source ${bash_file} && printf "\n[OK]\n"
     popd >& /dev/null
+    return 0
 }
 
 #Ex: If I wanted to rename a bunch of files so that each file is renamed individually
@@ -288,49 +340,3 @@ mvfileset() {
 	mv -v ${infile} ${outfile}
     done
 }
-
-#do a pull on all esgf projects
-esgf_git_pull_all() {
-    pushd ${1:-${HOME}/projects}
-    for proj in $(ls -d esg*); do 
-        echo "-----------"
-        git status
-        pushd $proj
-        git status
-        git pull
-        popd >& /dev/null
-        echo "-----------"
-        echo
-    done
-    popd >& /dev/null
-}
-
-[ -e ${PROJECT}/esg-dist/utils/misc/util_functions ] && source ${PROJECT}/esg-dist/utils/misc/util_functions
-
-#ca_list() {
-#    pushd ${HOME}/projects/esg-certs/esg_trusted_certificates >& /dev/null
-#    for file in `/bin/ls -rt | grep -v signing_policy`; do openssl x509 -in $file -noout -issuer -issuer_hash; done | grep "$1"
-#    popd >& /dev/null
-#}
-#esg_pull_projects() {
-#    pushd $PROJECT >& /dev/null
-#    for repo in `ls -d esg*-* | grep -v site | xargs`; do
-#        pushd "$repo" >& /dev/null
-#        echo "pulling $repo"
-#        git pull 2> /dev/null
-#        popd >& /dev/null
-#    done
-#    popd >& /dev/null
-#}
-#
-#esg_pull_sites() {
-#    pushd $PROJECT >& /dev/null
-#    ls -d * | egrep '^esg[f]??-.*site$' | xargs
-#    for repo in `ls -d esg*-* | grep site | xargs`; do
-#        pushd "$repo" >& /dev/null
-#        echo "pulling $repo"
-#        git pull
-#        popd >& /dev/null
-#    done
-#    popd >& /dev/null
-#}
