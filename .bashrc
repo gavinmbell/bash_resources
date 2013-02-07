@@ -121,7 +121,7 @@ BASH_CACHE_DIR=${HOME}/.bash_cache
 # User "Theme" preferences ;-)
 #----------------------------
 fonts=(doom banner cybermedium stop gothic doh)
-BANNER_FONT=${fonts[$((RANDOM % ${#fonts}))]}
+BANNER_FONT=${fonts[$((RANDOM % ${#fonts[@]}))]}
 
 PROMPT_ADDRESS_COLOR=
 PROMPT_DIR_COLOR=
