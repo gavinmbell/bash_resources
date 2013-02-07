@@ -1,13 +1,4 @@
-#! /bin/bash
 . ~/.bashrc
-
-#dispdir=`dirname $DISPLAY`
-#dispfile=`basename $DISPLAY`
-#dispnew="$dispdir/:0"
-#if [ -e $DISPLAY -a "$dispfile" = "org.x:0" ]; then
-#  mv $DISPLAY $dispnew
-#fi
-#export DISPLAY=$dispnew
 
 test -r /sw/bin/init.sh && . /sw/bin/init.sh
 
