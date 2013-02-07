@@ -31,7 +31,7 @@ show_hostname() {
         #http://www.network-science.de/ascii/ascii.php?TEXT=malcolm&x=32&y=13&FONT=doom&RICH=no&FORM=left&STRE=no&WIDT=80
         #for ascii art output
         echo "(font: ${font})"
-        local d="$(python <( curl -m 2 -s http://esgf.org/misc/ascii_grab.py) ${font} $(hostname -s))"
+        local d="$(python <( curl -m 2 -s http://moya.6thcolumn.org/misc/ascii_grab.py) ${font} $(hostname -s))"
         [ -n "${d}" ] && echo "${d}" > ${namefile} && chmod 666 ${namefile}
     fi
     cat ${namefile} 2> /dev/null
