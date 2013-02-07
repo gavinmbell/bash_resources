@@ -112,6 +112,7 @@ declare -r RED="\[\033[00;31m\]" >& /dev/null
 declare -r GREEN="\[\033[00;32m\]" >& /dev/null
 declare -r BLUE="\[\033[00;34m\]" >& /dev/null
 declare -r GOLD="\[\033[00;33m\]" >& /dev/null
+declare -r WHITE="\[\033[00;37m\]" >& /dev/null
 declare -r NOCOLOR="\[\033[00;00m\]" >& /dev/null
 declare -r CLOSE_COLOR="\[\033[00m\]" >& /dev/null
 
