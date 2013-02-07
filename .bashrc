@@ -136,7 +136,6 @@ source ${HOME:-~}/.git_bashrc
 __local_bash_rc=${HOME:-~}/.bash_local
 [ -e ${__local_bash_rc} ] && source ${__local_bash_rc}
 
-[${NOCOLOR} ${NOCOLOR}
 
 #-----------------------------
 # PROMPT
