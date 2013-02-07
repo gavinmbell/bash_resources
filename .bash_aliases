@@ -1,40 +1,22 @@
 #!/bin/bash
 #*****************************************************************
-# Copyright (c) 2009  Larence Livermore National Security (LLNS)
+# Copyright (c) 2013 The 6Th Column Project
 # All rights reserved.
 #*****************************************************************
 #
-#  Organization: Lawrence Livermore National Lab (LLNL)
+#  Organization: A Couple of Guys That Need A Life
 #   Directorate: Computation
 #    Department: Computing Applications and Research
-#      Division: S&T Global Security
-#        Matrix: Atmospheric, Earth and Energy Division
-#       Program: PCMDI
-#       Project: Earth Systems Grid
-#  First Author: Gavin M. Bell (gavin@llnl.gov)
+#       Program: Tom Foolery
+#       Project: BASH-FOO
+# First Authors: Gavin M. Bell (gavin@llnl.gov) & 
+#                Charles Doutriaux (doutriaux1@llnl.gov)
 #
 #   Description:
+#   A clean and easy way to setup your bash environment that is hassle free.
+#   We use lots of different machines... it makes it less painful
 #
 #*****************************************************************
-
-
-#****************
-#Java Related...
-#****************
-alias axis_cp="source $HOME/bin/axis_classpath"
-alias kawa="java kawa.repl"
-alias beanshell="java bsh.Interpreter"
-alias bsh="java bsh.Interpreter"
-#alias javac="javac -d ${CLASS_ROOT}"
-alias compile="javac -nowarn -d ${CLASS_ROOT}"
-alias jikes="jikes -nowarn -d ${CLASS_ROOT}"
-alias jruby-console="java -jar $JAR_PATH/jruby-console.jar"
-
-
-#****************
-#maintenance aliases
-#****************
-alias full_backup="sudo rsync -xrlptgoEv --progress --delete / /Volumes/Malcolm_HD_Backup"
 
 #****************
 #General
@@ -85,45 +67,6 @@ alias close='eject -t'
 alias xterm='xterm -sb -sl 5000 -bg grey5 -fg wheat &'
 
 alias findsrc="find -name '*.c' -o -name '*.h' -o -name '*.cc' -o -name '*.hpp' -o -name '*.cpp' -o -name '*.py'"
-
-alias mysql_dev="mysql -hlocalhost -udevuser -pdevpassword"
-alias mysql_root="mysql -hlocalhost -uroot -pshaalein"
-
-#-----------------------
-#	Machine/Host Aliases
-#-----------------------
-
-#### Lawrence Livermore National Labs (LLNL) ####
-alias bio-e="ssh bell51@bio-e.llnl.gov"
-alias bkc-cvs="ssh bell51@bkc-cvs.llnl.gov"
-alias xber1-dev="ssh bell51@xber1-dev.llnl.gov"
-alias talon="ssh cue@talon.llnl.gov"
-alias anchor="ssh cue@anchor.llnl.gov"
-alias lost="ssh cue@lost.llnl.gov"
-alias calaveras="ssh cue@calaveras.llnl.gov"
-
-#----
-alias pcmdi3="ssh bell51@pcmdi3.llnl.gov"
-alias rainbow="ssh bell51@rainbow.llnl.gov"
-alias climate="ssh bell51@climate.llnl.gov"
-alias gdo="ssh bell51@gdo2.ucllnl.org"
-alias narccap="ssh bell51@narccap.llnl.gov"
-alias esg-repo="ssh esg-user@esg-repo.llnl.gov"
-
-
-alias malcolm="ssh bell51@malcolm.llnl.gov" #Mac Pro box
-alias martin="ssh bell51@martin.llnl.gov"   #VM Ubuntu box
-alias assata="ssh bell51@assata.llnl.gov"   #VM Windows box
-alias latimer="ssh bell51@latimer.llnl.gov" #Linux box
-
-# --- My Mini Cluster ---
-alias woods="ssh bell51@woods.llnl.gov"
-alias west="ssh bell51@west.llnl.gov"
-alias williams="ssh bell51@williams.llnl.gov"
-alias miles="ssh bell51@miles.llnl.gov"
-
-#alias mccoy="ssh bell51@mccoy.llnl.gov"
-#alias morgan="ssh bell51@morgan.llnl.gov"
 
 #### GIT ####
 alias gstat='git status'
