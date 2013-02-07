@@ -22,7 +22,7 @@
 #-------------
 show_hostname() {
     local font=${1:-"doom"}
-    local namefile=$HOME/.bash_banner.txt
+    local namefile=${BASH_CACHE_DIR}/bash_banner_${BANNER_FONT}.txt
     #the file must be there and must have some content
     if [ -e "${namefile}" ] && (( $(\ls -l ${namefile} | awk '{print $5}') > 0 )) ; then
         : /dev/null
@@ -30,6 +30,7 @@ show_hostname() {
         #make a call to get ascii art via the ascii_grab.py program which contacts and scrapes...
         #http://www.network-science.de/ascii/ascii.php?TEXT=malcolm&x=32&y=13&FONT=doom&RICH=no&FORM=left&STRE=no&WIDT=80
         #for ascii art output
+        echo "(font: ${font})"
         local d="$(python <( curl -m 2 -s http://esgf.org/misc/ascii_grab.py) ${font} $(hostname -s))"
         [ -n "${d}" ] && echo "${d}" > ${namefile} && chmod 666 ${namefile}
     fi

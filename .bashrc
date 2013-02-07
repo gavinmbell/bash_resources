@@ -115,10 +115,13 @@ declare -r GOLD="\[\033[00;33m\]" >& /dev/null
 declare -r NOCOLOR="\[\033[00;00m\]" >& /dev/null
 declare -r CLOSE_COLOR="\[\033[00m\]" >& /dev/null
 
+BASH_CACHE_DIR=${HOME}/.bash_cache
+
 #----------------------------
 # User "Theme" preferences ;-)
 #----------------------------
-BANNER_FONT="doom"
+fonts=(doom banner cybermedium stop gothic doh)
+BANNER_FONT=${fonts[$((RANDOM % ${#fonts}))]}
 
 PROMPT_ADDRESS_COLOR=
 PROMPT_DIR_COLOR=
@@ -136,6 +139,7 @@ source ${HOME:-~}/.git_bashrc
 __local_bash_rc=${HOME:-~}/.bash_local
 [ -e ${__local_bash_rc} ] && source ${__local_bash_rc}
 
+mkdir -p ${BASH_CACHE_DIR}
 
 #-----------------------------
 # PROMPT
