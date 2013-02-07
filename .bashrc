@@ -113,7 +113,7 @@ declare -r GREEN="\[\033[00;32m\]" >& /dev/null
 declare -r BLUE="\[\033[00;34m\]" >& /dev/null
 declare -r GOLD="\[\033[00;33m\]" >& /dev/null
 declare -r NOCOLOR="\[\033[00;00m\]" >& /dev/null
-declare -r CLOSE_COLOR="\033[00m" >& /dev/null
+declare -r CLOSE_COLOR="\[\033[00m\]" >& /dev/null
 
 #----------------------------
 # User "Theme" preferences ;-)
@@ -151,7 +151,7 @@ ${PROMPT_ADDRESS_COLOR:-${GOLD}}'\u@\h'${CLOSE_COLOR}\
 ${NOCOLOR}':['${CLOSE_COLOR}\
 ${PROMPT_DIR_COLOR:-${RED}}'\W'${CLOSE_COLOR}\
 ${NOCOLOR}']:'${CLOSE_COLOR}\
-${PROMPT_GIT_BRANCH_COLOR:-${GREEN}}'$(__git_ps1 "[%s$(__git_prompt_info)]${CLOSE_COLOR}:")'\
+${PROMPT_GIT_BRANCH_COLOR:-${GREEN}}'$(__git_ps1 "[%s$(__git_prompt_info)]\[\033[00m\]:")'\
 ${NOCOLOR}'['${CLOSE_COLOR}\
 ${PROMPT_COMMAND_HIST_INDEX_COLOR:-${NOCOLOR}}'\!'${CLOSE_COLOR}\
 ${NOCOLOR}']> '${CLOSE_COLOR}
