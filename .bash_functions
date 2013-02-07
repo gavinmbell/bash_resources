@@ -44,6 +44,7 @@ show_welcome() {
     [ "${_os}" == "Darwin" ] && sw_vers
     echo " Host => `hostname -f`"
     show_hostname ${BANNER_FONT:-"doom"}
+    echo
     echo " Hardware: `uname -m`...."
     echo " Using Emacs Bindings..."
     uptime
