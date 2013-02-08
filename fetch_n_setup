@@ -1,0 +1,21 @@
+#!/bin/bash
+
+do_fetch_n_setup() {
+    echo -n "checking for git... "
+    local v=$(git --version 2> /dev/null)
+    [ $? != 0 ] || [ -z "${v}" ] && echo "Sorry, you need git to run this installer" && exit 1
+    echo "[OK]"
+
+    #Okay so now let's do some installation magic...
+    __destination=${1:-${__destination:-${HOME:-~}}} >& /dev/null
+    shift
+    echo "destination = ${__destination}"
+    
+    [ ! -d "${__destination}" ] && echo "Sorry this installation destination does not exist" && exit 2
+    git clone https://github.com/gavinmbell/bash_resources ${__destination}/.bash_resources # 2> /dev/null
+    cd  ${__destination}/.bash_resources
+    ./setup $@
+    source ${HOME:-~}/.bashrc
+}
+
+do_fetch_n_setup $@
