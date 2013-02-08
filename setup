@@ -1,27 +1,51 @@
 #!/bin/bash
+#*****************************************************************
+# Copyright (c) 2013 The 6Th Column Project
+# All rights reserved.
+#*****************************************************************
+#
+#  Organization: A Couple of Guys That Need A Life
+#   Directorate: Computation
+#    Department: Computing Applications and Research
+#       Program: Tom Foolery
+#       Project: BASH-FOO
+# First Authors: Gavin M. Bell (gavin@llnl.gov) &
+#                Charles Doutriaux (doutriaux1@llnl.gov)
+#
+#   Description:
+#   A clean and easy way to setup your bash environment that is hassle free.
+#   We use lots of different machines... it makes it less painful
+#
+#   Sets up dot bash files in your home directory
+#
+#*****************************************************************
 
-#sets up dot bash files in your home directory
+#TODO - implement revert_homedir function
+#TODO - write arg code to trigger revert if necessary
+
 DEBUG=0
 DRY_RUN=0
 
 homedir=${homedir:-${HOME:?"HOME environment var must be set!!!!"}}
 
-programs_to_chec_for=(fortune, uname, uptime)
+programs_to_check_for=(fortune uname uptime)
 
 quick_checks() {
-
     local oops_count=0
     for program in ${programs_to_check_for[@]}; do
         ${program} >& /dev/null
-        [ $? != 0 ] && ((oops_count++)) && echo "Couldn't find ${program}"
+        if [ $? != 0 ]; then
+            ((oops_count++))
+            echo "Couldn't find [${program}]"
+        fi
     done
     if ((oops_count > 0)); then
-        You may want to install the missed programs with...
+        echo "Warning: You may want to install the missing programs for optimum use..."
         if uname -a | grep -q Darwin; then
-            echo "MacPorts: https://www.macports.org/install.php"
+            echo "  MacPorts: https://www.macports.org/install.php"
             echo "> port install <program>"
         else
-            echo "Please install the missed programs for optimum use"
+            echo "  Please install the missing program(s) for optimum use (yum, apt-get, rpm, etc..)"
         fi
     fi
 }
@@ -85,9 +109,59 @@ setup_dot_bash_files() {
 
 revert_homedir() {
     [ ! -e .git ] && echo "Sorry this is not a git repo" && exit 1
+    echo " Revert Not Yet Implemented"
+    return 0
 }
 
-#TODO - implement revert_homedir function
-#TODO - write arg code to trigger revert if necessary
-quick_checks
-setup_dot_bash_files $@
+_usage() {
+    printf "
+Usage:
+  > setup
+           --install - Runs the installation process [default]
+           --revert  - Uninstalls the system [not yet implemented]
+           --help|-h - Prints this help message
+           --debug   - Runs in debug mode (more output)
+           --dry-run - Will not perform operations but will print what would be done
+
+"
+    exit 0
+}
+
+main() {
+    while [ -n "$1" ]; do
+	case "$1" in
+	    --install)
+		shift
+                INSTALL=1
+		break
+		;;
+	    --revert)
+                shift
+                REVERT=1
+		;;
+	    --help|-h)
+		_usage
+		;;
+            --debug)
+                shift
+                DEBUG=1
+                ;;
+            --dry-run)
+                shift
+                DRY_RUN=1
+                ;;
+	    *)
+		break
+	esac
+    done
+
+    ((DEBUG)) && echo "Debug mode on"
+    ((DRY_RUN)) && echo "Dry run mode on"
+
+    if ((REVERT)); then revert_homedir; exit $?; fi
+
+    #Functions that peform the installtion....
+    quick_checks && setup_dot_bash_files $@
+}
+
+main $@
