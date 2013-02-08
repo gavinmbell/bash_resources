@@ -122,7 +122,6 @@ BASH_CACHE_DIR=${HOME}/.bash_cache
 # User "Theme" preferences ;-)
 #----------------------------
 fonts=(doom banner cybermedium digital doh dotmatrix epic fuzzy gothic hollywood isometric1 larry3d lean letters puffy pebbles script serifcap shadow slant smisome1 smslant smkeyboard speed standard starwars stop straight thin tinker-toy)
-BANNER_FONT=${fonts[$((RANDOM % ${#fonts[@]}))]}
 
 PROMPT_ADDRESS_COLOR=
 PROMPT_DIR_COLOR=
@@ -139,6 +138,8 @@ source ${HOME:-~}/.git_bashrc
 
 __local_bash_rc=${HOME:-~}/.bash_local
 [ -e ${__local_bash_rc} ] && source ${__local_bash_rc}
+
+BANNER_FONT=${fonts[$((RANDOM % ${#fonts[@]}))]}
 
 mkdir -p ${BASH_CACHE_DIR}
 
