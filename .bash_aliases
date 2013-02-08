@@ -1,4 +1,3 @@
-#!/bin/bash
 #*****************************************************************
 # Copyright (c) 2013 The 6Th Column Project
 # All rights reserved.
