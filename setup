@@ -79,7 +79,7 @@ _readlinkf() {
             current_dir=$(pwd -P)
             echo "CRITICAL FAILURE[4]: symlink loop detected on ${current_dir}/${file}"
             cd ${start_dir}
-            exit ${count}
+            return ${count}
         fi
     done
     current_dir=$(pwd -P)
