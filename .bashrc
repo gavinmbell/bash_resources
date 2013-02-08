@@ -108,13 +108,13 @@ complete -o default -o nospace -F _git_checkout gls
 
 [ -e ~/.pythonrc ] && export PYTHONSTARTUP=~/.pythonrc
 
-declare -r RED="\[\033[00;31m\]" >& /dev/null
-declare -r GREEN="\[\033[00;32m\]" >& /dev/null
-declare -r BLUE="\[\033[00;34m\]" >& /dev/null
-declare -r GOLD="\[\033[00;33m\]" >& /dev/null
-declare -r WHITE="\[\033[00;37m\]" >& /dev/null
-declare -r NOCOLOR="\[\033[00;00m\]" >& /dev/null
-declare -r CLOSE_COLOR="\[\033[00m\]" >& /dev/null
+declare -r _RED="\[\033[00;31m\]" >& /dev/null
+declare -r _GREEN="\[\033[00;32m\]" >& /dev/null
+declare -r _BLUE="\[\033[00;34m\]" >& /dev/null
+declare -r _GOLD="\[\033[00;33m\]" >& /dev/null
+declare -r _WHITE="\[\033[00;37m\]" >& /dev/null
+declare -r _NOCOLOR="\[\033[00;00m\]" >& /dev/null
+declare -r _CLOSE_COLOR="\[\033[00m\]" >& /dev/null
 
 BASH_CACHE_DIR=${HOME}/.bash_cache
 
@@ -152,14 +152,14 @@ case "$TERM" in
 	##PS1='${debian_chroot:+($debian_chroot)}\[\033[00;33m\]\u@\h\[\033[00m\]:[\033[00;31m\]\W\[\033[00m\]]$(__git_ps1 ":[\033[00;32m\]%s$(__git_prompt_info)\033[00m\]]"):[\!]> '
 	if [ -z "${_PS1}" ]; then
           PS1='${debian_chroot:+($debian_chroot)}'\
-${PROMPT_ADDRESS_COLOR:-${GOLD}}'\u@\h'${CLOSE_COLOR}\
-${NOCOLOR}':['${CLOSE_COLOR}\
-${PROMPT_DIR_COLOR:-${RED}}'\W'${CLOSE_COLOR}\
-${NOCOLOR}']:'${CLOSE_COLOR}\
-${PROMPT_GIT_BRANCH_COLOR:-${GREEN}}'$(__git_ps1 "[%s$(__git_prompt_info)]\[\033[00m\]:")'\
-${NOCOLOR}'['${CLOSE_COLOR}\
-${PROMPT_COMMAND_HIST_INDEX_COLOR:-${NOCOLOR}}'\!'${CLOSE_COLOR}\
-${NOCOLOR}']> '${CLOSE_COLOR}
+${PROMPT_ADDRESS_COLOR:-${_GOLD}}'\u@\h'${_CLOSE_COLOR}\
+${_NOCOLOR}':['${_CLOSE_COLOR}\
+${PROMPT_DIR_COLOR:-${_RED}}'\W'${_CLOSE_COLOR}\
+${_NOCOLOR}']:'${_CLOSE_COLOR}\
+${PROMPT_GIT_BRANCH_COLOR:-${_GREEN}}'$(__git_ps1 "[%s$(__git_prompt_info)]\[\033[00m\]:")'\
+${_NOCOLOR}'['${_CLOSE_COLOR}\
+${PROMPT_COMMAND_HIST_INDEX_COLOR:-${_NOCOLOR}}'\!'${_CLOSE_COLOR}\
+${_NOCOLOR}']> '${_CLOSE_COLOR}
 	  _PS1=${PS1}
 	fi
 	PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007";history -a'
