@@ -89,9 +89,16 @@ _readlinkf() {
 
 setup_dot_bash_files() {
     [ ! -e .git ] && echo "Sorry this is not a git repo" && exit 1
-    
+    local mod_count=0
     for dot_file in $(ls -a | grep bash); do
         echo -n "setting up $dot_file... "
+
+        #exclusion for the .bash_profile file - only link if not already present in ${homedir}
+        if [ "${dot_file}" = ".bash_profile" ] && [ -e ${homedir}/${dot_file} ]; then
+            ((DEBUG)) && echo "Already have a .bash_profile present, will not alter" || echo "[OK] <skipping>"
+            continue
+        fi
+
         #check if the file exists already
         if [ "$(_readlinkf ${dot_file})" == "$(_readlinkf ${homedir}/${dot_file} | tail -n 1)" ]; then
             echo "[OK] (nothing to do already linked)"
@@ -101,10 +108,14 @@ setup_dot_bash_files() {
             ((DEBUG||DRY_RUN)) && echo "ln -s $(_readlinkf ${dot_file}) ${homedir}/${dot_file}"
             if ((! DRY_RUN)); then
                 ln -s $(_readlinkf ${dot_file}) ${homedir}/${dot_file}
-                [ $? != 0 ] && echo "ERROR: problem linking ${dot_file}" || echo " linked file... [OK] "
+                if [ $? != 0 ]; then echo "ERROR: problem linking ${dot_file}"; else echo " linked file... [OK] " && ((++mod_count)); fi
             fi
         fi
     done
+    # A succesful run (returning 0) is when some work or change in state has occured from the installation
+    # If no work had to be done then it returns 1
+    # This allows for the capability to condition subsequent action based on the behavior of this function.
+    ((mod_count > 0)) && return 0 || return 1
 }
 
 revert_homedir() {
@@ -161,7 +172,7 @@ main() {
     if ((REVERT)); then revert_homedir; exit $?; fi
 
     #Functions that peform the installtion....
-    quick_checks && setup_dot_bash_files $@
+    quick_checks && setup_dot_bash_files $@ && echo "source ${homedir}/.bashrc" && source ${homedir}/.bashrc
 }
 
 main $@
