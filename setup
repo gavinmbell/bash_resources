@@ -133,7 +133,6 @@ main() {
 	    --install)
 		shift
                 INSTALL=1
-		break
 		;;
 	    --revert)
                 shift
@@ -151,7 +150,8 @@ main() {
                 DRY_RUN=1
                 ;;
 	    *)
-		break
+                echo "Unknown option $1"
+                exit 1
 	esac
     done
 
