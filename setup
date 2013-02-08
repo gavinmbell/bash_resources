@@ -172,7 +172,7 @@ main() {
     if ((REVERT)); then revert_homedir; exit $?; fi
 
     #Functions that peform the installtion....
-    quick_checks && setup_dot_bash_files $@ && echo "source ${homedir}/.bashrc" && source ${homedir}/.bashrc
+    quick_checks && setup_dot_bash_files $@ && echo "Don't forget to run: source ${homedir}/.bashrc" && source ${homedir}/.bashrc
 }
 
 main $@
