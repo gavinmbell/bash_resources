@@ -1,12 +1,33 @@
 
+----------
+Welcome
+----------
+
 This repo is to help with the setup of an amenable BASH environment.
-I find that often I am on a foriegn machine that I wish I could
-quickly setup.  Keeping this repo of a bash environment setup allows
-me to keep files consistent and quickly configure new environments.
+This effort was borne from the fact that I often find that I am on a
+foriegn or new machine that I have to quickly setup and do work on.
+Having a cogent and customized environment is key to working
+effectively. So, this is an effort to create such an environment in a
+way that is flexible for others to perhaps get use from.  Leveraging
+GIT seemed like the right thing to do.
 
-All the bash goodies under one "roof" also included installer (setup) script
+In this repo you will find the .bash* scripts necessary to set up your
+BASH environment.  I code for a living so the environment is of a
+distinctly developer ilk. I have included an install "setup" script to
+do the installation and have functions to help keep things up-to-date.
+My friends thus far enjoy it and I hope you will too.
 
+Some goodies: The prompt changes when you are in a GIT repo to give
+you some nice status information to help you navigate around in "the Z
+- repo" axis.  Great for GIT users / developers!
+
+There is a fair amount of gratuitous tom-foolery regarding the initial
+shell welcome output (hope you are a fan of ascii-art fonts ;-)).
+It's all in good fun!
+
+----------
 INSTALLATION:
+----------
 
 %> cd ~/
 %> git clone https://github.com/gavinmbell/bash_resources ~/.bash_resources
@@ -19,6 +40,23 @@ Type:
 
 (smile)
 
-I should have done this a long time ago...
+Once you have this installed, you may put an additional customizations in file:
+
+ ~/.bash_local
+
+This file is sourced at the end of the load sequence.
+
+----------
+UPDATING:
+----------
+
+To make it easy to stay updated with the latest changes, there is a function to call.
+Regardless of where you are located in the file system you can always call:
+
+%> check_for_bash_resources_update
+
+This will update this project from the git repository and branch that the project is locally at.
+
+I should have done this a long time ago... enjoy! :-)
 -gavin
 
