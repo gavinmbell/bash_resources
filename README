@@ -30,7 +30,7 @@ INSTALLATION:
 ----------
 
 %> cd ~/
-%> git clone https://github.com/gavinmbell/bash_resources ~/.bash_resources
+%> git clone git://github.com/gavinmbell/bash_resources.git ~/.bash_resources
 %> cd .bash_resources
 %> ./setup
 %> source ~/.bashrc
