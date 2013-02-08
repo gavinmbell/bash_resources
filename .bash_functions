@@ -1,19 +1,19 @@
-#!/bin/bash
 #*****************************************************************
-# Copyright (c) 2009  Larence Livermore National Security (LLNS)
+# Copyright (c) 2013 The 6Th Column Project
 # All rights reserved.
 #*****************************************************************
 #
-#  Organization: Lawrence Livermore National Lab (LLNL)
+#  Organization: A Couple of Guys That Need A Life
 #   Directorate: Computation
 #    Department: Computing Applications and Research
-#      Division: S&T Global Security
-#        Matrix: Atmospheric, Earth and Energy Division
-#       Program: PCMDI
-#       Project: Earth Systems Grid
-#  First Author: Gavin M. Bell (gavin@llnl.gov)
+#       Program: Tom Foolery
+#       Project: BASH-FOO
+# First Authors: Gavin M. Bell (gavin@llnl.gov) & 
+#                Charles Doutriaux (doutriaux1@llnl.gov)
 #
 #   Description:
+#   A clean and easy way to setup your bash environment that is hassle free.
+#   We use lots of different machines... it makes it less painful
 #
 #*****************************************************************
 
@@ -315,7 +315,7 @@ check_for_bash_resources_update() {
         echo "(aborting)"
         return 0
     fi
-    git pull && source ${bash_file} && printf "\n[OK]\n"
+    git pull 2> /dev/null && source ${bash_file} >& /dev/null && printf "\n[OK]\n"
     popd >& /dev/null
     return 0
 }
