@@ -291,7 +291,7 @@ check_for_bash_resources_update() {
     fi
     echo "Querying for updates..." && git fetch 2> /dev/null
 
-    local distance=$(source ${bash_resources_dir}/.git_bashrc && __git_remote_dist)
+    local distance=$(source ${bash_resources_dir}/bash_git && __git_remote_dist)
     if [ $? != 0 ]; then
         echo "Sorry, problem getting distance metric... :-(" && popd >& /dev/null 
         return 0
