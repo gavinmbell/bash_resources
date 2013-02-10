@@ -12,7 +12,7 @@ do_fetch_n_setup() {
     echo "destination = ${__destination}"
     
     [ ! -d "${__destination}" ] && echo "Sorry this installation destination does not exist" && exit 2
-    [ ! -f "${__destination}/.git/config" ] && echo "Sorry this location is already under git source control" && exit 3
+   #[ ! -f "${__destination}/.git/config" ] && echo "Sorry this location is already under git source control" && exit 3
 
     git clone git://github.com/gavinmbell/bash_resources.git ${__destination}/.bash_resources # 2> /dev/null
     cd  ${__destination}/.bash_resources
