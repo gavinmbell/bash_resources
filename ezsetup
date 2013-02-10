@@ -12,10 +12,67 @@ do_fetch_n_setup() {
     echo "destination = ${__destination}"
     
     [ ! -d "${__destination}" ] && echo "Sorry this installation destination does not exist" && exit 2
+    [ ! -f "${__destination}/.git/config" ] && echo "Sorry this location is already under git source control" && exit 3
+
     git clone git://github.com/gavinmbell/bash_resources.git ${__destination}/.bash_resources # 2> /dev/null
     cd  ${__destination}/.bash_resources
-    ./setup $@
-    source ${HOME:-~}/.bashrc
+    ./setup $@ && echo "ezsetup complete"
+}
+_usage() {
+    printf "
+Usage:
+  > ezsetup <top level dir to checkout repo> [flags]
+
+           --install - Runs the installation process [default]
+           --revert  - Uninstalls the system [not yet implemented]
+           --help|-h - Prints this help message
+           --debug   - Runs in debug mode (more output)
+           --dry-run - Will not perform operations but will print what would be done
+
+"
+    exit 0
 }
 
-do_fetch_n_setup $@
+main() {
+    while [ -n "$1" ]; do
+	case "$1" in
+	    --install)
+		shift
+                INSTALL=1
+		;;
+	    --revert)
+                shift
+                REVERT=1
+		;;
+	    --help|-h)
+		_usage
+		;;
+            --debug)
+                shift
+                DEBUG=1
+                ;;
+            --force)
+                shift
+                FORCE=1
+                ;;
+            --dry-run)
+                shift
+                DRY_RUN=1
+                ;;
+	    *)
+                echo "Unknown option $1"
+                exit 1
+	esac
+    done
+
+    ((DEBUG)) && echo "Debug mode on"
+    ((DRY_RUN)) && echo "Dry run mode on"
+
+    if ((REVERT)); then revert_homedir; exit $?; fi
+
+    #Functions that peform the installtion....
+    do_fetch_n_setup $@
+}
+
+main $@
+
