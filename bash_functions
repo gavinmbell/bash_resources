@@ -44,7 +44,7 @@ show_welcome() {
     echo "You are logged into a ${_os} Machine...(Version `uname -r`)"
     [ "${_os}" == "Darwin" ] && sw_vers
     echo " Host => `hostname -f`"
-    show_hostname ${BANNER_FONT:-"doom"}
+    [[ ! ${HOSTNAME_BANNER_OFF} ]] && show_hostname ${BANNER_FONT:-"doom"}
     echo
     echo " Hardware: `uname -m`...."
     echo " Using Emacs Bindings..."
