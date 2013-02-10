@@ -66,8 +66,8 @@ __git_remote_dist() {
 #is branch dirty?
 GIT_THEME_PROMPT_DIRTY='*'
 __parse_git_dirty() {
-    if [[ -n "$(git status --porcelain --ignore-submodules 2> /dev/null)" ]]; then
-    #if [[ $(git diff --shortstat 2> /dev/null ) != "" ]]; then
+    #if [[ -n "$(git status --porcelain --ignore-submodules 2> /dev/null)" ]]; then
+    if [[ -n "$(git diff --shortstat 2> /dev/null )" ]]; then
         echo -e "$GIT_THEME_PROMPT_DIRTY"
     else
         echo -e "$GIT_THEME_PROMPT_CLEAN"
