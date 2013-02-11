@@ -32,7 +32,8 @@ show_hostname() {
         #http://www.network-science.de/ascii/ascii.php?TEXT=malcolm&x=32&y=13&FONT=doom&RICH=no&FORM=left&STRE=no&WIDT=80
         #for ascii art output
         echo "(font: ${font})"
-        local d="$(python <( curl -m 2 -s http://moya.6thcolumn.org/misc/ascii_grab.py) ${font} ${_hostname})"
+	## Gavin needs to replace this with some readlink to get "perfect" path
+        local d="$(python ${BASH_COMPLETION_DIR}/../tools/ascii_grab.py ${font} ${_hostname})"
         [ -n "${d}" ] && printf "${_hostname}\n${d}\n" > ${namefile} && chmod 666 ${namefile}
     fi
     sed '1d' ${namefile} 2> /dev/null

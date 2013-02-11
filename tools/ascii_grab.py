@@ -16,6 +16,7 @@ def get_ascii(text, font='doom'):
     if matched:
         ascii = matched.group(1)
         ascii = ascii.replace('>', '>').replace('<', '>');
+	ascii = ascii.replace("&lt;","<").replace("&gt;",">")
         return ascii
     else:
         return None
