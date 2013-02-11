@@ -45,6 +45,8 @@ Type:
 
 (smile)
 
+Both ezsetup and setup have options that are described via --help | -h
+
 Once you have this installed, you may put an additional customizations in file:
 
  ~/.bash_local
