@@ -18,6 +18,46 @@
 #*****************************************************************
 
 #-------------
+# (private) Utility functions...
+#-------------
+
+_readlinkf() {
+    # This is a portable implementation of GNU's "readlink -f" in
+    # bash/zsh, following symlinks recursively until they end in a
+    # file, and will print the full dereferenced path of the specified
+    # file even if the file isn't a symlink.
+    #
+    # Loop detection exists, but only as an abort after passing a
+    # maximum length.
+
+    local start_dir=$(pwd)
+    local file=${1}
+    cd $(dirname ${file})
+    file=$(basename ${file})
+
+    # Iterate down symlinks.  If we exceed a maximum number symlinks, assume that
+    # we're looped and die horribly.
+    local maxlinks=20
+    local count=0
+    local current_dir
+    while [ -L "${file}" ] ; do
+        file=$(readlink ${file})
+        cd $(dirname ${file})
+        file=$(basename ${file})
+        ((count++))
+        if (( count > maxlinks )) ; then
+            current_dir=$(pwd -P)
+            echo "CRITICAL FAILURE[4]: symlink loop detected on ${current_dir}/${file}"
+            cd ${start_dir}
+            return ${count}
+        fi
+    done
+    current_dir=$(pwd -P)
+    echo "${current_dir}/${file}"
+    cd ${start_dir}
+}
+
+#-------------
 # Shell welcome banner...
 #-------------
 show_hostname() {
@@ -32,8 +72,12 @@ show_hostname() {
         #http://www.network-science.de/ascii/ascii.php?TEXT=malcolm&x=32&y=13&FONT=doom&RICH=no&FORM=left&STRE=no&WIDT=80
         #for ascii art output
         echo "(font: ${font})"
-	## Gavin needs to replace this with some readlink to get "perfect" path
-        local d="$(python ${BASH_COMPLETION_DIR}/../tools/ascii_grab.py ${font} ${_hostname})"
+        #Just keeping this here as a reference, cause it was kinda cool... (used to execute the python loaded remotely)
+        #local d="$(python <( curl -m 2 -s http://moya.6thcolumn.org/misc/ascii_grab.py) ${font} ${_hostname})"
+        local abs_path_bashrc=$(_readlinkf ${HOME}/.bashrc)
+        local bash_resources_tld=${abs_path_bashrc%/*}
+        [ ! -e "${bash_resources_tld}/tools/ascii_grab.py" ] && return 0
+        local d="$(python ${bash_resources_tld}/tools/ascii_grab.py ${font} ${_hostname})"
         [ -n "${d}" ] && printf "${_hostname}\n${d}\n" > ${namefile} && chmod 666 ${namefile}
     fi
     sed '1d' ${namefile} 2> /dev/null
@@ -232,46 +276,6 @@ find_in_code() {
     echo "find . -name \*.cc -o -name \*.h -o -name \*.cpp -o -name \*.hpp -o -name \*.py | xargs grep -i $*"
     find . -name \*.cc -o -name \*.h -o -name \*.cpp -o -name \*.hpp -o -name \*.py -o name \*.java | xargs grep -i $*
     popd >& /dev/null
-}
-
-#-------------
-# (private) Utility functions...
-#-------------
-
-_readlinkf() {
-    # This is a portable implementation of GNU's "readlink -f" in
-    # bash/zsh, following symlinks recursively until they end in a
-    # file, and will print the full dereferenced path of the specified
-    # file even if the file isn't a symlink.
-    #
-    # Loop detection exists, but only as an abort after passing a
-    # maximum length.
-
-    local start_dir=$(pwd)
-    local file=${1}
-    cd $(dirname ${file})
-    file=$(basename ${file})
-
-    # Iterate down symlinks.  If we exceed a maximum number symlinks, assume that
-    # we're looped and die horribly.
-    local maxlinks=20
-    local count=0
-    local current_dir
-    while [ -L "${file}" ] ; do
-        file=$(readlink ${file})
-        cd $(dirname ${file})
-        file=$(basename ${file})
-        ((count++))
-        if (( count > maxlinks )) ; then
-            current_dir=$(pwd -P)
-            echo "CRITICAL FAILURE[4]: symlink loop detected on ${current_dir}/${file}"
-            cd ${start_dir}
-            return ${count}
-        fi
-    done
-    current_dir=$(pwd -P)
-    echo "${current_dir}/${file}"
-    cd ${start_dir}
 }
 
 #-------------
