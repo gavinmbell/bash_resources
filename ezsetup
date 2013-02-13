@@ -1,4 +1,24 @@
 #!/bin/bash
+#*****************************************************************
+# Copyright (c) 2013 The 6Th Column Project, LLC
+# All rights reserved.
+# http://6thcolumn.org/LICENSE
+#*****************************************************************
+#
+#  Organization: CodeWrx
+#   Directorate: Computation
+#    Department: Computing Applications and Research
+#       Program: Tom Foolery
+#       Project: BASH-FOO
+#  First Author: Gavin M. Bell (gavin@6thcolumn.org)
+#
+#   Description:
+#   A clean and easy way to setup your bash environment that is hassle free.
+#   We use lots of different machines... it makes it less painful
+#
+#   Sets up dot bash files in your home directory
+#
+#*****************************************************************
 
 do_fetch_n_setup() {
     echo -n "checking for git... "
