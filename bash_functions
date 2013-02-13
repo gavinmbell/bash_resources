@@ -72,7 +72,7 @@ show_hostname() {
         #http://www.network-science.de/ascii/ascii.php?TEXT=malcolm&x=32&y=13&FONT=doom&RICH=no&FORM=left&STRE=no&WIDT=80
         #for ascii art output
         #Just keeping this here as a reference, cause it was kinda cool... (used to execute the python loaded remotely)
-        #local d="$(python <( curl -m 2 -s http://moya.6thcolumn.org/misc/ascii_grab.py) ${font} ${_hostname})"
+        #local d="$(python <( curl -m 2 -s http://moya.6thcolumn.org/resources/bash/ascii_grab.py) ${font} ${_hostname})"
         local abs_path_bashrc=$(_readlinkf ${HOME}/.bashrc)
         local bash_resources_tld=${abs_path_bashrc%/*}
         [ ! -e "${bash_resources_tld}/tools/ascii_grab.py" ] && return 0
