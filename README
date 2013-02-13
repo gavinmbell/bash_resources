@@ -29,7 +29,7 @@ It's all in good fun!
 INSTALLATION:
 ----------
 
-%> bash <(curl -s http://moya.6thcolumn.org/misc/ezsetup)
+%> bash <(curl -s http://moya.6thcolumn.org/resources/bash/ezsetup)
 
 OR
 
