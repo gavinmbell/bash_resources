@@ -43,7 +43,7 @@ export BASH_COMPLETION=${HOME:-~}/.bash_completion >& /dev/null
 export BASH_COMPLETION_DIR=${HOME:-~}/.bash_completion.d >& /dev/null
 source $BASH_COMPLETION >& /dev/null
 source $BASH_COMPLETION_DIR/* >& /dev/null
-export PATH=.:~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/git/bin:/bin:/usr/bin:/usr/sbin:/sbin:/usr/X11R6/bin:/usr/texbin
+export PATH=.:~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/git/bin:/bin:/usr/bin:/usr/sbin:/sbin:/usr/X11R6/bin:/usr/texbin:/sw/bin
 
 export LANG="C"
 export EDITOR='emacs'
