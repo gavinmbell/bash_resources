@@ -294,7 +294,8 @@ check_for_bash_resources_update() {
         echo "Sorry, could not enter \"${bash_resources_dir}\" :-(" && popd >& /dev/null
         return 2
     fi
-    echo "Querying for updates..." && git fetch 2> /dev/null
+    echo "Querying for updates..." && git fetch >& /dev/null
+    [ $? != 0 ] && echo "ERROR: Could not perform fetch from repo!!! (hint: check network connectivity and try again)" && return 99
 
     local distance=$(source ${bash_resources_dir}/bash_git && __git_remote_dist)
     if [ $? != 0 ]; then
