@@ -152,7 +152,7 @@ case "$TERM" in
 	## Commenting out gives weird character on centos and terminal length issues
 	##PS1='${debian_chroot:+($debian_chroot)}\[\033[00;33m\]\u@\h\[\033[00m\]:[\033[00;31m\]\W\[\033[00m\]]$(__git_ps1 ":[\033[00;32m\]%s$(__git_prompt_info)\033[00m\]]"):[\!]> '
 	if [ -z "${_PS1}" ]; then
-          PS1='${debian_chroot:+($debian_chroot)}'\
+          PS1=\
 ${PROMPT_ADDRESS_COLOR:-${_GOLD}}'\u@\h'${_CLOSE_COLOR}\
 ${_NOCOLOR}':['${_CLOSE_COLOR}\
 ${PROMPT_DIR_COLOR:-${_RED}}'\W'${_CLOSE_COLOR}\
@@ -167,7 +167,7 @@ ${_NOCOLOR}']> '${_CLOSE_COLOR}
 	;;
     *)
         if [ -z "${_PS1}" ]; then
-	  PS1='${debian_chroot:+($debian_chroot)}\u@\h:[\W]:[\!]> '
+	  PS1='\u@\h:[\W]:[\!]> '
 	  _PS1=${PS1}
 	fi
 	;;
