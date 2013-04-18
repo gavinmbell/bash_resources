@@ -347,3 +347,8 @@ mvfileset() {
 	mv -v ${infile} ${outfile}
     done
 }
+
+__on_mac=$(uname -a | grep -q Darwin && echo 1 || echo 0)
+md5sum() {
+    ((__on_mac)) && md5 $@ | sed -n 's/MD5 (\([^)]*\))[ ]*=[ ]*\(.*\)/\2 \1/p' || md5sum $@
+}

@@ -174,3 +174,6 @@ ${_NOCOLOR}']> '${_CLOSE_COLOR}
 esac
 #-----------------------------
 show_welcome
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
