@@ -76,8 +76,8 @@ export ESGF_SITE_ROOT=$PROJECT/esgf-site
 
 #System-wide resources....
 export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home
-export ANT_HOME=/usr/share/ant
-export M2_HOME=/usr/local/maven
+#export ANT_HOME=/usr/share/ant
+#export M2_HOME=/usr/local/maven
 
 #Account scope resources
 export CATALINA_HOME=$DEVTOOLS/tomcat
@@ -90,9 +90,11 @@ export PATH=$PATH$( [ -e $JAVA_HOME/bin ] && echo ":$JAVA_HOME/bin" || echo "")\
 $( [ -e $JAVA_HOME/bin ] && echo ":$JAVA_HOME/bin" || echo "")\
 $( [ -e $ANT_HOME/bin ] && echo ":$ANT_HOME/bin" || echo "")\
 $( [ -e $M2_HOME/bin ] && echo ":$M2_HOME/bin" || echo "")\
+$( [ -e $GROOVY_HOME/bin ] && echo ":$GROOVY_HOME/bin" || echo "")
 $( [ -e $JRUBY_HOME/bin ] && echo ":$JRUBY_HOME/bin" || echo "")
 
-export CLASS_ROOT=$HOME/classes
+export CLASS_ROOT=$HOME/.classes
+[ ! -d $CLASS_ROOT ] && mkdir -p $CLASS_ROOT
 export JAR_PATH=$HOME/classes/jars
 export CLASSPATH=.
 if [ -e "${CLASS_ROOT}" ]; then
@@ -176,4 +178,4 @@ esac
 show_welcome
 
 ### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+[ -d /usr/local/heroku/bin/ ] && export PATH="/usr/local/heroku/bin:$PATH"
