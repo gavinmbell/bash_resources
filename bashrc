@@ -95,7 +95,7 @@ $( [ -e $JRUBY_HOME/bin ] && echo ":$JRUBY_HOME/bin" || echo "")
 
 export CLASS_ROOT=$HOME/.classes
 [ ! -d $CLASS_ROOT ] && mkdir -p $CLASS_ROOT
-export JAR_PATH=$HOME/classes/jars
+export JAR_PATH=$HOME/.classes/jars
 export CLASSPATH=.
 if [ -e "${CLASS_ROOT}" ]; then
     export CLASSPATH=.:$CLASS_ROOT
