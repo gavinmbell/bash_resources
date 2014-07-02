@@ -75,22 +75,23 @@ export CDPATH=.:..:$HOME/:$PROJECT/
 export ESGF_SITE_ROOT=$PROJECT/esgf-site
 
 #System-wide resources....
-export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home
+#export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
 #export ANT_HOME=/usr/share/ant
 #export M2_HOME=/usr/local/maven
 
 #Account scope resources
-export CATALINA_HOME=$DEVTOOLS/tomcat
-export TOMCAT_HOME=$CATALINA_HOME
-export JAXB_HOME=$DEVTOOLS/jwsdp/jaxb
-export GROOVY_HOME=$DEVTOOLS/groovy
-export JRUBY_HOME=$DEVTOOLS/jruby
+[ -e $DEVTOOLS/tomcat ] && export CATALINA_HOME=$DEVTOOLS/tomcat
+[ -e $CATALINA_HOME ] && export TOMCAT_HOME=$CATALINA_HOME
+[ -e $DEVTOOLS/jwsdp/jaxb ] && export JAXB_HOME=$DEVTOOLS/jwsdp/jaxb
+[ -e $DEVTOOLS/groovy ] && export GROOVY_HOME=$DEVTOOLS/groovy
+[ -e $DEVTOOLS/jruby ] && export JRUBY_HOME=$DEVTOOLS/jruby
 
 export PATH=$PATH$( [ -e $JAVA_HOME/bin ] && echo ":$JAVA_HOME/bin" || echo "")\
 $( [ -e $JAVA_HOME/bin ] && echo ":$JAVA_HOME/bin" || echo "")\
 $( [ -e $ANT_HOME/bin ] && echo ":$ANT_HOME/bin" || echo "")\
 $( [ -e $M2_HOME/bin ] && echo ":$M2_HOME/bin" || echo "")\
-$( [ -e $GROOVY_HOME/bin ] && echo ":$GROOVY_HOME/bin" || echo "")
+$( [ -e $GROOVY_HOME/bin ] && echo ":$GROOVY_HOME/bin" || echo "")\
 $( [ -e $JRUBY_HOME/bin ] && echo ":$JRUBY_HOME/bin" || echo "")
 
 export CLASS_ROOT=$HOME/.classes
