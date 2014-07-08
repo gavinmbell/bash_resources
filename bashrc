@@ -133,7 +133,7 @@ PROMPT_COMMAND_HIST_INDEX_COLOR=
 PROMPT_SHOW_FULL_PATH=
 #-----------------------------
 
-
+[ -d /usr/local/go/bin ] && ! grep -q /usr/local/go/bin <<<$PATH && export PATH="/usr/local/go/bin:$PATH" && echo -n "."
 
 source ${HOME:-~}/.bash_aliases
 source ${HOME:-~}/.bash_functions
