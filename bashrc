@@ -60,8 +60,8 @@ export LSCOLORS=dxgxcxdxbxcgcdabagacad
 export LS_COLORS="no=00:fi=00:di=33:ln=00;36:pi=40;33:so=00;35:bd=40;33;00:cd=40;33;00:or=40;31;00:ex=00;31:*.tar=00;*.class=00;22;*.jar=46;00:*.tgz=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.zip=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.deb=00;31:*.rpm=00;31:*.jpg=00;35:*.png=00;35:*.gif=00;35:*.bmp=00;35:*.ppm=00;35:*.tga=00;35:*.xbm=00;35:*.xpm=00;35:*.tif=00;35:*.png=00;35:*.mpg=00;35:*.avi=00;35:*.fli=00;35:*.gl=00;35:*.dl=00;35:"
 #-----
 
-#export GREP_OPTIONS='--color=auto' 
-export GREP_COLOR='01;36;*'
+#export GREP_OPTIONS='--color=auto'
+#export GREP_COLOR='01;36;*'
 
 export TEMP="/tmp/`whoami`"
 export TMP=${TEMP}
