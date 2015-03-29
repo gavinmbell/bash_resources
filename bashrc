@@ -9,7 +9,7 @@
 #    Department: Computing Applications and Research
 #       Program: Tom Foolery
 #       Project: BASH-FOO
-# First Authors: Gavin M. Bell (gavin@llnl.gov) & 
+# First Authors: Gavin M. Bell (gavin@llnl.gov) &
 #                Charles Doutriaux (doutriaux1@llnl.gov)
 #
 #   Description:
@@ -30,8 +30,8 @@ set -o emacs
 #set -o ignoreeof
 export IGNOREEOF=1
 
-set show-all-if-ambiguous on                                                    
-set visible-stats on 
+set show-all-if-ambiguous on
+set visible-stats on
 
 export LC_CTYPE="en_US.UTF-8"
 export HISTCONTROL=ignoredups
@@ -150,7 +150,7 @@ mkdir -p ${BASH_CACHE_DIR}
 # PROMPT
 #-----------------------------
 case "$TERM" in
-    xterm | xterm-color) 
+    xterm | xterm-color)
         ## Charles Doutriaux 2013-02-06
 	## Commenting out gives weird character on centos and terminal length issues
 	##PS1='${debian_chroot:+($debian_chroot)}\[\033[00;33m\]\u@\h\[\033[00m\]:[\033[00;31m\]\W\[\033[00m\]]$(__git_ps1 ":[\033[00;32m\]%s$(__git_prompt_info)\033[00m\]]"):[\!]> '
