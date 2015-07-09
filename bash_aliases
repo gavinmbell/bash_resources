@@ -44,7 +44,9 @@ alias lf='ls -Fg'
 alias lc='ls -Cg'
 alias a=alias
 alias h=history
-alias hist=history
+
+#alias hist=history same as h
+
 alias pd=pushd
 alias push=pushd
 alias pop=popd
