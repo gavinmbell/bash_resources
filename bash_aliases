@@ -82,5 +82,5 @@ ghelp() {
     ssh latimer.llnl.gov git help $@ | less 
 }
 
-alias emacsserver="emacs --daemon"
+alias emacsserver="\emacs --daemon"
 alias emacs="emacsclient -c"
