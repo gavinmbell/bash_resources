@@ -76,7 +76,7 @@ export ESGF_SITE_ROOT=$PROJECT/esgf-site
 
 #System-wide resources....
 #export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.7)
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 #export ANT_HOME=/usr/share/ant
 #export M2_HOME=/usr/local/maven
 
