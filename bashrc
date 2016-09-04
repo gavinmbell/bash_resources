@@ -152,9 +152,9 @@ mkdir -p ${BASH_CACHE_DIR}
 case "$TERM" in
     xterm | xterm-color | xterm-256color)
         ## Charles Doutriaux 2013-02-06
-	## Commenting out gives weird character on centos and terminal length issues
-	##PS1='${debian_chroot:+($debian_chroot)}\[\033[00;33m\]\u@\h\[\033[00m\]:[\033[00;31m\]\W\[\033[00m\]]$(__git_ps1 ":[\033[00;32m\]%s$(__git_prompt_info)\033[00m\]]"):[\!]> '
-	if [ -z "${_PS1}" ]; then
+        ## Commenting out gives weird character on centos and terminal length issues
+        ##PS1='${debian_chroot:+($debian_chroot)}\[\033[00;33m\]\u@\h\[\033[00m\]:[\033[00;31m\]\W\[\033[00m\]]$(__git_ps1 ":[\033[00;32m\]%s$(__git_prompt_info)\033[00m\]]"):[\!]> '
+        if [ -z "${_PS1}" ]; then
           PS1=\
 ${PROMPT_ADDRESS_COLOR:-${_GOLD}}'\u@\h'${_CLOSE_COLOR}\
 ${_NOCOLOR}':['${_CLOSE_COLOR}\
@@ -164,16 +164,16 @@ ${PROMPT_GIT_BRANCH_COLOR:-${_GREEN}}'$(__git_ps1 "[%s$(__git_prompt_info)]\[\03
 ${_NOCOLOR}'['${_CLOSE_COLOR}\
 ${PROMPT_COMMAND_HIST_INDEX_COLOR:-${_NOCOLOR}}'\!'${_CLOSE_COLOR}\
 ${_NOCOLOR}']> '${_CLOSE_COLOR}
-	  _PS1=${PS1}
-	fi
-	PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007";history -a'
-	;;
+          _PS1=${PS1}
+        fi
+        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007";history -a'
+        ;;
     *)
         if [ -z "${_PS1}" ]; then
-	  PS1='\u@\h:[\W]:[\!]> '
-	  _PS1=${PS1}
-	fi
-	;;
+            PS1='\u@\h:[\W]:[\!]> '
+            _PS1=${PS1}
+        fi
+        ;;
 esac
 #-----------------------------
 show_welcome
