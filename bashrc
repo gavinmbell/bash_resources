@@ -47,7 +47,7 @@ export PATH=.:~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/git/bin:/bin:/usr/
 
 export LANG="C"
 export EDITOR='emacs'
-export TERM="xterm-color"
+export TERM="xterm-256color"
 export CLICOLOR="true"
 #-----
 # http://osxdaily.com/2012/02/21/add-color-to-the-terminal-in-mac-os-x/
@@ -150,7 +150,7 @@ mkdir -p ${BASH_CACHE_DIR}
 # PROMPT
 #-----------------------------
 case "$TERM" in
-    xterm | xterm-color)
+    xterm | xterm-color | xterm-256color)
         ## Charles Doutriaux 2013-02-06
 	## Commenting out gives weird character on centos and terminal length issues
 	##PS1='${debian_chroot:+($debian_chroot)}\[\033[00;33m\]\u@\h\[\033[00m\]:[\033[00;31m\]\W\[\033[00m\]]$(__git_ps1 ":[\033[00;32m\]%s$(__git_prompt_info)\033[00m\]]"):[\!]> '
