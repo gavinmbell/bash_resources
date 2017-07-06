@@ -82,5 +82,10 @@ ghelp() {
     ssh latimer.llnl.gov git help $@ | less 
 }
 
-alias emacsserver="\emacs --daemon"
-alias emacs="emacsclient -c"
+# Emacs under X11
+#alias emacsserver="\emacs --daemon"
+#alias emacs="emacsclient -c"
+
+# Emacs under MacOS
+alias emacsserver="/Applications/Emacs.app/Contents/MacOS/Emacs --daemon"
+alias emacs="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c "
