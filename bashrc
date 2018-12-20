@@ -39,7 +39,7 @@ export HISTSIZE=1000000
 export HISTFILESIZE=1000000
 export TMOUT=0
 
-[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion >& /dev/null || echo "NOTE: Please install bash-completion"
 
 export PATH=.:~/bin:/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:/usr/sbin:/sbin:/Library/TeX/texbin
 
