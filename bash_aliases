@@ -44,6 +44,7 @@ alias lf='ls -Fg'
 alias lc='ls -Cg'
 alias a=alias
 alias h=history
+alias grep='grep --color=auto'
 
 #alias hist=history same as h
 
@@ -68,8 +69,6 @@ alias close='eject -t'
 alias xterm='xterm -sb -sl 5000 -bg grey5 -fg wheat &'
 
 alias findsrc="find -name '*.c' -o -name '*.h' -o -name '*.cc' -o -name '*.hpp' -o -name '*.cpp' -o -name '*.py'"
-
-#alias grep='grep --color-auto'
 
 #### GIT ####
 alias gstat='git status'

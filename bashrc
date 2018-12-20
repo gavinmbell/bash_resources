@@ -39,11 +39,9 @@ export HISTSIZE=1000000
 export HISTFILESIZE=1000000
 export TMOUT=0
 
-export BASH_COMPLETION=${HOME:-~}/.bash_completion >& /dev/null
-export BASH_COMPLETION_DIR=${HOME:-~}/.bash_completion.d >& /dev/null
-source $BASH_COMPLETION >& /dev/null
-source $BASH_COMPLETION_DIR/* >& /dev/null
-export PATH=.:~/bin:/usr/local/bin:/usr/local/sbin:/usr/local/git/bin:/bin:/usr/bin:/usr/sbin:/sbin:/usr/X11R6/bin:/usr/texbin:/sw/bin
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+
+export PATH=.:~/bin:/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:/usr/sbin:/sbin:/Library/TeX/texbin
 
 export LANG="C"
 export EDITOR='emacs'
@@ -60,9 +58,6 @@ export LSCOLORS=dxgxcxdxbxcgcdabagacad
 export LS_COLORS="no=00:fi=00:di=33:ln=00;36:pi=40;33:so=00;35:bd=40;33;00:cd=40;33;00:or=40;31;00:ex=00;31:*.tar=00;*.class=00;22;*.jar=46;00:*.tgz=00;31:*.arj=00;31:*.taz=00;31:*.lzh=00;31:*.zip=00;31:*.z=00;31:*.Z=00;31:*.gz=00;31:*.bz2=00;31:*.deb=00;31:*.rpm=00;31:*.jpg=00;35:*.png=00;35:*.gif=00;35:*.bmp=00;35:*.ppm=00;35:*.tga=00;35:*.xbm=00;35:*.xpm=00;35:*.tif=00;35:*.png=00;35:*.mpg=00;35:*.avi=00;35:*.fli=00;35:*.gl=00;35:*.dl=00;35:"
 #-----
 
-export GREP_OPTIONS='--color=always'
-#export GREP_COLOR='01;36;*'
-
 export TEMP="/tmp/`whoami`"
 export TMP=${TEMP}
 mkdir -p ${TEMP}
@@ -75,8 +70,7 @@ export CDPATH=.:..:$HOME/:$PROJECT/
 export ESGF_SITE_ROOT=$PROJECT/esgf-site
 
 #System-wide resources....
-#export JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/CurrentJDK/Home
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+export JAVA_HOME=$(/usr/libexec/java_home)
 #export ANT_HOME=/usr/share/ant
 #export M2_HOME=/usr/local/maven
 
