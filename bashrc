@@ -38,8 +38,21 @@ export HISTCONTROL=ignoredups
 export HISTSIZE=1000000
 export HISTFILESIZE=1000000
 export TMOUT=0
+DEBUG=0
 
-[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion >& /dev/null || echo "NOTE: Please install bash-completion"
+#------
+#bash-completion...
+#------
+if [ -f /usr/local/share/bash-completion/bash_completion ]; then
+    #echo "using bash-completion v2 (installed with brew isnall bash-completion@2)"
+     . /usr/local/share/bash-completion/bash_completion >& /dev/null
+elif [ -f /usr/local/etc/bash_completion ]; then
+    #echo "using bash-completion (installed with brew isnall bash-completion)"
+    . /usr/local/etc/bash_completion >& /dev/null
+else
+    echo "NOTE: Please install bash-completion (%> brew install bash-completion)"
+fi
+#------
 
 export PATH=.:~/bin:/usr/local/bin:/usr/local/sbin:/bin:/usr/bin:/usr/sbin:/sbin:/Library/TeX/texbin
 

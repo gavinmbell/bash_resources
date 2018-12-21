@@ -8,7 +8,7 @@
 #    Department: Computing Applications and Research
 #       Program: Tom Foolery
 #       Project: BASH-FOO
-# First Authors: Gavin M. Bell (gavin@llnl.gov) & 
+# First Authors: Gavin M. Bell (gavin@llnl.gov) &
 #                Charles Doutriaux (doutriaux1@llnl.gov)
 #
 #   Description:
@@ -77,9 +77,6 @@ alias gco='git checkout'
 alias gls='git branch'
 alias gitweb='git instaweb -d webrick'
 alias gstat='git status'
-ghelp() { 
-    ssh latimer.llnl.gov git help $@ | less 
-}
 
 # Emacs under X11
 #alias emacsserver="\emacs --daemon"
@@ -88,3 +85,6 @@ ghelp() {
 # Emacs under MacOS
 alias emacsserver="/Applications/Emacs.app/Contents/MacOS/Emacs --daemon"
 alias emacs="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c "
+
+# super user alias
+alias please='sudo'
