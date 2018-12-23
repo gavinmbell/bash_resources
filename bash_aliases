@@ -71,6 +71,7 @@ alias xterm='xterm -sb -sl 5000 -bg grey5 -fg wheat &'
 alias findsrc="find -name '*.c' -o -name '*.h' -o -name '*.cc' -o -name '*.hpp' -o -name '*.cpp' -o -name '*.py'"
 
 #### GIT ####
+$(hub --version >& /dev/null) && alias git=hub
 alias gstat='git status'
 alias gci='git commit'
 alias gco='git checkout'
