@@ -154,10 +154,10 @@ complete -o default -o nospace -F _git_checkout gls
 
 [ -e ~/.pythonrc ] && export PYTHONSTARTUP=~/.pythonrc
 
-declare -r _RED="\[\033[00;31m\]" >& /dev/null
-declare -r _GREEN="\[\033[00;32m\]" >& /dev/null
-declare -r _BLUE="\[\033[00;34m\]" >& /dev/null
-declare -r _GOLD="\[\033[00;33m\]" >& /dev/null
+declare -r _RED="\[\033[01;31m\]" >& /dev/null   #bold
+declare -r _GREEN="\[\033[01;32m\]" >& /dev/null #bold
+declare -r _BLUE="\[\033[01;34m\]" >& /dev/null  #bold
+declare -r _GOLD="\[\033[01;33m\]" >& /dev/null  #bold
 declare -r _WHITE="\[\033[00;37m\]" >& /dev/null
 declare -r _NOCOLOR="\[\033[00;00m\]" >& /dev/null
 declare -r _CLOSE_COLOR="\[\033[00m\]" >& /dev/null
