@@ -18,6 +18,8 @@
 #
 #   Prequequisites:
 #          * brew (mac's package installer: https://brew.sh/)
+#          * fortune
+#               %> brew install fortune
 #          * bash-completion
 #               %> brew install bash-completion@2
 #          * hub (github's git wrapper)
