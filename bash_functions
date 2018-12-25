@@ -8,7 +8,7 @@
 #    Department: Computing Applications and Research
 #       Program: Tom Foolery
 #       Project: BASH-FOO
-# First Authors: Gavin M. Bell (gavin@llnl.gov) & 
+# First Authors: Gavin M. Bell (gavin@llnl.gov) &
 #                Charles Doutriaux (doutriaux1@llnl.gov)
 #
 #   Description:
@@ -85,7 +85,7 @@ show_hostname() {
 
 show_welcome() {
     echo
-    _os="$(uname -s)"
+    local _os="$(uname -s)"
     echo "You are logged into a ${_os} Machine...(Version `uname -r`)"
     [ "${_os}" == "Darwin" ] && sw_vers
     echo " Host => `hostname -f`"
@@ -114,16 +114,16 @@ trash() {
   local all=0
   local good=0
   local bad=0
-  
-  for file in $@; do 
+
+  for file in $@; do
       mv $file $TRASH
-      if [ $? == 0 ]; then 
+      if [ $? == 0 ]; then
           echo -n "."
           ((good++))
       else
           echo -n "X"
           ((bad++))
-          
+
       fi
       ((all++))
   done
@@ -168,7 +168,7 @@ show_local_trash() {
     [ $? != 0 ] && echo "Sorry, You don't have a local trash!" && return 1
     du -sh * 2> /dev/null
     du -sh . 2> /dev/null
-    popd >& /dev/null    
+    popd >& /dev/null
     return 0;
 }
 
@@ -182,13 +182,13 @@ empty_local_trash() {
     if [ "$doit" = "y" ]; then
 	#echo "rm -v -rf ./.Trash/*" 2> /dev/null
 	rm -v -rf ./.Trash/* 2> /dev/null
-    fi    
+    fi
 }
 
 show_all_trash() {
     pushd ~/ >& /dev/null
     echo "Searching all trash files below `pwd`"
-    for f in `find . -name '.Trash' `; do 
+    for f in `find . -name '.Trash' `; do
 	pushd ${f%/*} >& /dev/null
 	printf "\nFound Trash in ${f%/*}\n"
 	[ $? != 0 ] && continue
@@ -202,7 +202,7 @@ empty_all_trash() {
     pushd ~/ >& /dev/null
     echo "Emptying all trash files below `pwd`"
     local doit="n"
-    for f in `find . -name '.Trash' `; do 
+    for f in `find . -name '.Trash' `; do
 	pushd ${f%/*} >& /dev/null
 	[ $? != 0 ] && continue
 	empty_local_trash
@@ -255,7 +255,7 @@ export ARCHIVE=${HOME}/.my_archive
 
 archive() {
     export ${ARCHIVE:=${HOME}/.my_archive} >& /dev/null
-    mkdir -p $ARCHIVE 
+    mkdir -p $ARCHIVE
     mv "$*" $ARCHIVE
     echo archived:[$*]
 }
@@ -299,15 +299,15 @@ check_for_bash_resources_update() {
 
     local distance=$(source ${bash_resources_dir}/bash_git && __git_remote_dist)
     if [ $? != 0 ]; then
-        echo "Sorry, problem getting distance metric... :-(" && popd >& /dev/null 
+        echo "Sorry, problem getting distance metric... :-(" && popd >& /dev/null
         return 0
     fi
     [ -z "${distance}" ] && echo "You are up to date :-)" && popd >& /dev/null && return 0
 
     local current_branch=$(git symbolic-ref HEAD | cut -d/ -f3)
-    if [ $? != 0 ] || [[ -z "${current_branch}" ]]; then 
-        echo "Sorry, you are not on a branch that can be updated" && popd >& /dev/null 
-        return 3; 
+    if [ $? != 0 ] || [[ -z "${current_branch}" ]]; then
+        echo "Sorry, you are not on a branch that can be updated" && popd >& /dev/null
+        return 3;
     fi
     local remote_branch=$(git branch -vv | sed -n '/\* '${current_branch}'/p' | sed -n 's/[^[]*\[\([^]]*\)\].*/\1/p' | awk -F: '{print $1}')
     echo "Log:"
@@ -338,8 +338,8 @@ mvfileset() {
     exp=$1
     inpat=$2
     outpat=$3
-    
-    echo 
+
+    echo
     echo "${exp} : ${inpat} -> ${outpat}"
     echo
     for infile in `ls ${exp}`; do
