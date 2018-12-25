@@ -209,7 +209,7 @@ ${PROMPT_COMMAND_HIST_INDEX_COLOR:-${_NOCOLOR}}'\!'${_CLOSE_COLOR}\
 ${_NOCOLOR}']> '${_CLOSE_COLOR}
           _PS1=${PS1}
         fi
-        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007";history -a'
+       PROMPT_COMMAND='[ -n "${TERMCAP}" ] && grep -q "eterm-color" <<< "${TERMCAP}" && echo "$pwd" || echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"; history -a'
         ;;
     *)
         if [ -z "${_PS1}" ]; then
