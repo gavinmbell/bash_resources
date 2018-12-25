@@ -16,6 +16,13 @@
 #   A clean and easy way to setup your bash environment that is hassle free.
 #   We use lots of different machines... it makes it less painful
 #
+#   Prequequisites:
+#          * brew (mac's package installer: https://brew.sh/)
+#          * bash-completion
+#               %> brew install bash-completion@2
+#          * hub (github's git wrapper)
+#               %> brew install hub
+#
 #*****************************************************************
 
 [ -z "$PS1" ] && return
