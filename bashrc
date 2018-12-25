@@ -47,6 +47,8 @@ export HISTFILESIZE=1000000
 export TMOUT=0
 DEBUG=0
 
+mkdir -p ${BASH_CACHE_DIR:=${HOME}/.bash_cache}
+
 #------
 #bash-completion...
 #------
@@ -144,17 +146,6 @@ $( [ -e $M2_HOME/bin ] && echo ":$M2_HOME/bin" || echo "")\
 $( [ -e $GROOVY_HOME/bin ] && echo ":$GROOVY_HOME/bin" || echo "")\
 $( [ -e $JRUBY_HOME/bin ] && echo ":$JRUBY_HOME/bin" || echo "")
 
-#export CLASS_ROOT=$HOME/.classes
-#[ ! -d $CLASS_ROOT ] && mkdir -p $CLASS_ROOT
-#export JAR_PATH=$HOME/.classes/jars
-#export CLASSPATH=.
-if [ -e "${CLASS_ROOT}" ]; then
-    export CLASSPATH=.:$CLASS_ROOT
-fi
-if [ -e "${JAR_PATH}" ]; then
-    export CLASSPATH=$CLASSPATH:$(find $JAR_PATH | xargs | perl -pe 's/ /:/g')
-fi
-
 complete -o default -o nospace -F _git_checkout gci
 complete -o default -o nospace -F _git_checkout gco
 complete -o default -o nospace -F _git_checkout gls
@@ -168,13 +159,6 @@ declare -r _GOLD="\[\033[01;33m\]" >& /dev/null  #bold
 declare -r _WHITE="\[\033[00;37m\]" >& /dev/null
 declare -r _NOCOLOR="\[\033[00;00m\]" >& /dev/null
 declare -r _CLOSE_COLOR="\[\033[00m\]" >& /dev/null
-
-BASH_CACHE_DIR=${HOME}/.bash_cache
-
-#----------------------------
-# User "Theme" preferences ;-)
-#----------------------------
-fonts=(doom banner cybermedium digital doh dotmatrix epic fuzzy gothic hollywood isometric1 larry3d lean letters puffy pebbles script serifcap shadow slant smisome1 smslant smkeyboard speed standard starwars stop straight thin tinker-toy)
 
 PROMPT_ADDRESS_COLOR=
 PROMPT_DIR_COLOR=
@@ -192,9 +176,12 @@ source ${HOME:-~}/.bash_git
 __local_bash_rc=${HOME:-~}/.bash_local
 [ -e ${__local_bash_rc} ] && source ${__local_bash_rc}
 
-BANNER_FONT=${fonts[$((RANDOM % ${#fonts[@]}))]}
+#----------------------------
+# User Banner Preferences ;-)
+#----------------------------
+declare -r fonts=(doom banner cybermedium digital doh dotmatrix epic fuzzy gothic hollywood isometric1 larry3d lean letters puffy pebbles script serifcap shadow slant smisome1 smslant smkeyboard speed standard starwars stop straight thin tinker-toy) >& /dev/null
 
-mkdir -p ${BASH_CACHE_DIR}
+BANNER_FONT=${fonts[$((RANDOM % ${#fonts[@]}))]}
 
 #-----------------------------
 # PROMPT
