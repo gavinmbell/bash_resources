@@ -352,3 +352,17 @@ __on_mac=$(uname -a | grep -q Darwin && echo 1 || echo 0)
 md5sum() {
     ((__on_mac)) && md5 $@ | sed -n 's/MD5 (\([^)]*\))[ ]*=[ ]*\(.*\)/\2 \1/p' || md5sum $@
 }
+
+bash_stats() {
+    fc -l 1 | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n25
+}
+
+take() {
+    mkdir -p $1
+    cd $1
+}
+
+alias_value() {
+    alias "$1" | sed "s/^$1='\(.*\)'$/\1/"
+    test $(alias "$1")
+}
