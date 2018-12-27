@@ -153,20 +153,6 @@ complete -o default -o nospace -F _git_checkout gco
 complete -o default -o nospace -F _git_checkout gls
 
 [ -e ~/.pythonrc ] && export PYTHONSTARTUP=~/.pythonrc
-
-declare -r _RED="\[\033[01;31m\]" >& /dev/null   #bold
-declare -r _GREEN="\[\033[01;32m\]" >& /dev/null #bold
-declare -r _BLUE="\[\033[01;34m\]" >& /dev/null  #bold
-declare -r _GOLD="\[\033[01;33m\]" >& /dev/null  #bold
-declare -r _WHITE="\[\033[00;37m\]" >& /dev/null
-declare -r _NOCOLOR="\[\033[00;00m\]" >& /dev/null
-declare -r _CLOSE_COLOR="\[\033[00m\]" >& /dev/null
-
-PROMPT_ADDRESS_COLOR=
-PROMPT_DIR_COLOR=
-PROMPT_GIT_BRANCH_COLOR=
-PROMPT_COMMAND_HIST_INDEX_COLOR=
-PROMPT_SHOW_FULL_PATH=
 #-----------------------------
 
 [ -d /usr/local/go/bin ] && ! grep -q /usr/local/go/bin <<<$PATH && export PATH="/usr/local/go/bin:$PATH" && echo -n "."
@@ -188,6 +174,30 @@ BANNER_FONT=${fonts[$((RANDOM % ${#fonts[@]}))]}
 #-----------------------------
 # PROMPT
 #-----------------------------
+# (some handy color constants)
+declare -r _RED="\[\033[01;31m\]" >& /dev/null   #bold
+declare -r _GREEN="\[\033[01;32m\]" >& /dev/null #bold
+declare -r _BLUE="\[\033[01;34m\]" >& /dev/null  #bold
+declare -r _GOLD="\[\033[01;33m\]" >& /dev/null  #bold
+declare -r _WHITE="\[\033[00;37m\]" >& /dev/null
+declare -r _NOCOLOR="\[\033[00;00m\]" >& /dev/null
+declare -r _CLOSE_COLOR="\[\033[00m\]" >& /dev/null
+
+# (vars to set color of each prompt portion)
+# PROMPT_ADDRESS_COLOR=
+# PROMPT_DIR_COLOR=
+# PROMPT_GIT_BRANCH_COLOR=
+# PROMPT_COMMAND_HIST_INDEX_COLOR=
+
+# (vars for modifying behavior of git portion of prompt)
+GIT_PS1_SHOWDIRTYSTATE=1
+GIT_PS1_SHOWUNTRACKEDFILES=1
+GIT_PS1_SHOWSTASHSTATE=1
+GIT_PS1_SHOWUPSTREAM="auto git verbose"
+GIT_PS1_STATESEPARATOR="|"
+GIT_PS1_SHOWCOLORHINTS=1
+source ${HOME:-~}/.bash_git_prompt
+
 case "$TERM" in
     xterm | xterm-color | xterm-256color)
         ## Charles Doutriaux 2013-02-06
@@ -199,7 +209,7 @@ ${PROMPT_ADDRESS_COLOR:-${_GOLD}}'\u@\h'${_CLOSE_COLOR}\
 ${_NOCOLOR}':['${_CLOSE_COLOR}\
 ${PROMPT_DIR_COLOR:-${_RED}}'\W'${_CLOSE_COLOR}\
 ${_NOCOLOR}']:'${_CLOSE_COLOR}\
-${PROMPT_GIT_BRANCH_COLOR:-${_GREEN}}'$(__git_ps1 "[%s$(__git_prompt_info)]\[\033[00m\]:")'\
+${PROMPT_GIT_BRANCH_COLOR:-${_GREEN}}'$(__git_ps1 "[%s]\[\033[00m\]:")'\
 ${_NOCOLOR}'['${_CLOSE_COLOR}\
 ${PROMPT_COMMAND_HIST_INDEX_COLOR:-${_NOCOLOR}}'\!'${_CLOSE_COLOR}\
 ${_NOCOLOR}']> '${_CLOSE_COLOR}

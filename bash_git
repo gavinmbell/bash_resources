@@ -3,6 +3,13 @@
 # Originally written by the venerable Estani
 #############################################
 
+#### GIT ####
+$(hub --version >& /dev/null) && alias git=hub
+alias gstat='git status'
+alias gci='git commit'
+alias gco='git checkout'
+alias gls='git branch'
+alias gitweb='git instaweb -d webrick'
 alias gll="git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 
 ginfo() {
@@ -46,16 +53,20 @@ hash_color() {
     echo $color
 }
 
-__git_ps1() {
-    local b="$(git symbolic-ref HEAD 2>/dev/null)";
-    if [ -n "$b" ]; then
-        if [ -n "$1" ]; then
-            printf "$1" "${b##refs/heads/}";
-        else
-            printf " (%s)" "${b##refs/heads/}";
-        fi;
-    fi
-}
+#----------------------------------------------------
+# OLDER __git functions... (no longer directly used)
+#----------------------------------------------------
+
+#__git_ps1() {
+#    local b="$(git symbolic-ref HEAD 2>/dev/null)";
+#    if [ -n "$b" ]; then
+#        if [ -n "$1" ]; then
+#            printf "$1" "${b##refs/heads/}";
+#        else
+#            printf " (%s)" "${b##refs/heads/}";
+#        fi;
+#    fi
+#}
 
 #distance to remote commit
 __git_remote_dist() {
