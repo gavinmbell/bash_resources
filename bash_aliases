@@ -82,3 +82,4 @@ alias emacs="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c "
 alias please='sudo'
 
 # (note: for git aliases see bash_git file)
+alias t=task
