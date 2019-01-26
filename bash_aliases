@@ -83,3 +83,5 @@ alias please='sudo'
 
 # (note: for git aliases see bash_git file)
 alias t=task
+
+alias bkuphist='cp ~/.bash_history{,.bak}'
