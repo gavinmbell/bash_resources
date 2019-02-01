@@ -81,6 +81,11 @@ alias emacs="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c "
 # super user alias
 alias please='sudo'
 
+# allowing remote login (via ssh) into this machine
+alias ssh-allow?='sudo systemsetup -getremotelogin'
+alias ssh-allow='sudo systemsetup -setremotelogin on'
+alias ssh-deny='sudo systemsetup -setremotelogin off'
+
 # (note: for git aliases see bash_git file)
 alias t=task
 
