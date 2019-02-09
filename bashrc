@@ -148,6 +148,12 @@ $( [ -e $M2_HOME/bin ] && echo ":$M2_HOME/bin" || echo "")\
 $( [ -e $GROOVY_HOME/bin ] && echo ":$GROOVY_HOME/bin" || echo "")\
 $( [ -e $JRUBY_HOME/bin ] && echo ":$JRUBY_HOME/bin" || echo "")
 
+# Go Lang Env -------------
+export GOPATH="${PROJECT}/go-projects"
+export GOROOT="/usr/local/opt/go/libexec" # path via %> $(brew --prefix golang)
+export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+#--------------------------
+
 complete -o default -o nospace -F _git_checkout gci
 complete -o default -o nospace -F _git_checkout gco
 complete -o default -o nospace -F _git_checkout gls
