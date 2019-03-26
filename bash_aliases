@@ -78,6 +78,9 @@ alias findsrc="find -name '*.c' -o -name '*.h' -o -name '*.cc' -o -name '*.hpp' 
 alias emacsserver="/Applications/Emacs.app/Contents/MacOS/Emacs --daemon"
 alias emacs="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -c "
 
+#Google Chrome
+alias chrome="/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome "
+
 # super user alias
 alias please='sudo'
 
