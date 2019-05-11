@@ -20,6 +20,8 @@
 #          * brew (mac's package installer: https://brew.sh/)
 #          * fortune
 #               %> brew install fortune
+#          * cowsay (cause it is mad funny when a cow says your fortune)
+#               %> brew install cowsay
 #          * bash-completion
 #               %> brew install bash-completion@2
 #          * hub (github's git wrapper)
@@ -140,8 +142,9 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 [ -e $DEVTOOLS/jwsdp/jaxb ] && export JAXB_HOME=$DEVTOOLS/jwsdp/jaxb
 [ -e $DEVTOOLS/groovy ] && export GROOVY_HOME=$DEVTOOLS/groovy
 [ -e $DEVTOOLS/jruby ] && export JRUBY_HOME=$DEVTOOLS/jruby
+[ -e $DEVTOOLS/graalvm ] && export GRAALVM_HOME=$DEVTOOLS/graalvm/Contents/Home
 
-export PATH=$PATH$( [ -e $JAVA_HOME/bin ] && echo ":$JAVA_HOME/bin" || echo "")\
+export PATH=$PATH$( [ -e $GRAALVM_HOME/bin ] && echo ":$GRAALVM_HOME/bin" || echo "")\
 $( [ -e $JAVA_HOME/bin ] && echo ":$JAVA_HOME/bin" || echo "")\
 $( [ -e $ANT_HOME/bin ] && echo ":$ANT_HOME/bin" || echo "")\
 $( [ -e $M2_HOME/bin ] && echo ":$M2_HOME/bin" || echo "")\
@@ -151,7 +154,7 @@ $( [ -e $JRUBY_HOME/bin ] && echo ":$JRUBY_HOME/bin" || echo "")
 # Go Lang Env -------------
 export GOPATH="${PROJECT}/go-projects"
 export GOROOT="/usr/local/opt/go/libexec" # path via %> $(brew --prefix golang)
-export PATH="$PATH:${GOPATH}/bin:${GOROOT}/bin"
+[ -e ${GOPATH}/bin ] export PATH="$PATH:${GOROOT}/bin"
 #--------------------------
 
 complete -o default -o nospace -F _git_checkout gci

@@ -95,8 +95,8 @@ show_welcome() {
     echo " Using Emacs Bindings..."
     uptime
     echo
-    fortune 2> /dev/null
-    [ $? != 0 ] && echo "(psst... may want to install \"fortune\")"
+    fortune 2> /dev/null | cowsay
+    [ $? != 0 ] && echo "(psst... may want to install \"fortune\" and \"cowsay\")"
     echo
 }
 

@@ -29,7 +29,7 @@ FORCE=0
 
 homedir=${homedir:-${HOME:?"HOME environment var must be set!!!!"}}
 
-programs_to_check_for=(fortune uname uptime)
+programs_to_check_for=(fortune cowsay uname uptime)
 
 quick_checks() {
     local oops_count=0
