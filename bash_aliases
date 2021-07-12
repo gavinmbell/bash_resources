@@ -65,6 +65,10 @@ alias emacs='emacs -bg black -fg wheat '
 alias e='/usr/bin/emacs -nw'
 alias close='eject -t'
 
+#alias for using python v3
+alias python="/usr/local/bin/python3"
+alias pip="/usr/local/bin/pip3"
+
 #alias xterm='xterm -sb -sl 5000 -bg black -fg wheat &'
 alias xterm='xterm -sb -sl 5000 -bg grey5 -fg wheat &'
 
