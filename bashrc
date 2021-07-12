@@ -176,10 +176,8 @@ __local_bash_rc=${HOME:-~}/.bash_local
 #----------------------------
 # User Banner Preferences ;-)
 #----------------------------
-declare -r fonts=(doom banner cybermedium digital doh dotmatrix epic fuzzy gothic hollywood isometric1 larry3d lean letters puffy pebbles script serifcap shadow slant smisome1 smslant smkeyboard speed standard starwars stop straight thin tinker-toy) >& /dev/null
-
-BANNER_FONT=${fonts[$((RANDOM % ${#fonts[@]}))]}
-
+[[ -z "${banner_fonts}" ]] && declare -r banner_fonts=(doom banner cybermedium digital doh dotmatrix epic fuzzy gothic hollywood isometric1 larry3d lean letters puffy pebbles script serifcap shadow slant smisome1 smslant smkeyboard speed standard starwars stop straight thin tinker-toy) >& /dev/null
+BANNER_FONT=${banner_fonts[$((RANDOM % ${#banner_fonts[@]}))]} #var used in bash_functions in "show_welcome" function
 #-----------------------------
 # PROMPT
 #-----------------------------
@@ -235,3 +233,8 @@ ${_NOCOLOR}']> '${_CLOSE_COLOR}
 esac
 #-----------------------------
 show_welcome
+
+export NVM_DIR="/Users/cue/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
+[ -s "/Users/cue/.web3j/source.sh" ] && source "/Users/cue/.web3j/source.sh"
