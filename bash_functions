@@ -62,7 +62,7 @@ _readlinkf() {
 #-------------
 show_hostname() {
     local font=${1:-"doom"}
-    local namefile=${BASH_CACHE_DIR}/bash_banner_${BANNER_FONT}.txt
+    local namefile=${BASH_CACHE_DIR}/bash_banner_${font}.txt
     local _hostname=$(hostname -s)
     #the file must be there and must have some content
     if [ -e "${namefile}" ] && (( $(\ls -l ${namefile} | awk '{print $5}') > 0 ))  && [ "$(sed -n '1p' ${namefile})" = "${_hostname}" ] ; then
