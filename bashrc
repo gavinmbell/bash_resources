@@ -145,16 +145,16 @@ export JAVA_HOME=$(/usr/libexec/java_home)
 [ -e $DEVTOOLS/graalvm ] && export GRAALVM_HOME=$DEVTOOLS/graalvm/Contents/Home
 
 export PATH=$PATH$( [ -e $GRAALVM_HOME/bin ] && echo ":$GRAALVM_HOME/bin" || echo "")\
-$( [ -e $JAVA_HOME/bin ] && echo ":$JAVA_HOME/bin" || echo "")\
-$( [ -e $ANT_HOME/bin ] && echo ":$ANT_HOME/bin" || echo "")\
-$( [ -e $M2_HOME/bin ] && echo ":$M2_HOME/bin" || echo "")\
-$( [ -e $GROOVY_HOME/bin ] && echo ":$GROOVY_HOME/bin" || echo "")\
-$( [ -e $JRUBY_HOME/bin ] && echo ":$JRUBY_HOME/bin" || echo "")
+$( [[ -n "${JAVA_HOME}" && -e $JAVA_HOME/bin ]] && echo ":$JAVA_HOME/bin" || echo "")\
+$( [[ -n "${ANT_HOME}" && -e $ANT_HOME/bin ]] && echo ":$ANT_HOME/bin" || echo "")\
+$( [[ -n "${M2_HOME}" && -e $M2_HOME/bin ]] && echo ":$M2_HOME/bin" || echo "")\
+$( [[ -n "${GROOVY_HOME}" && -e $GROOVY_HOME/bin ]] && echo ":$GROOVY_HOME/bin" || echo "")\
+$( [[ -n "${JRUBY_HOME}" && -e $JRUBY_HOME/bin ]] && echo ":$JRUBY_HOME/bin" || echo "")
 
 # Go Lang Env -------------
 export GOPATH="${PROJECT}/go-projects"
 export GOROOT="/usr/local/opt/go/libexec" # path via %> $(brew --prefix golang)
-[ -e ${GOPATH}/bin ] export PATH="$PATH:${GOROOT}/bin"
+[[ -n "${GOPATH}" && -e ${GOPATH}/bin ]] && export PATH="$PATH:${GOROOT}/bin"
 #--------------------------
 
 complete -o default -o nospace -F _git_checkout gci
