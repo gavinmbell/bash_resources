@@ -151,11 +151,24 @@ $( [[ -n "${M2_HOME}" && -e $M2_HOME/bin ]] && echo ":$M2_HOME/bin" || echo "")\
 $( [[ -n "${GROOVY_HOME}" && -e $GROOVY_HOME/bin ]] && echo ":$GROOVY_HOME/bin" || echo "")\
 $( [[ -n "${JRUBY_HOME}" && -e $JRUBY_HOME/bin ]] && echo ":$JRUBY_HOME/bin" || echo "")
 
-# Go Lang Env -------------
+#--------------------------
+# GOlang PROGRAMMING LANGUAGE SETUP
+#--------------------------
 export GOPATH="${PROJECT}/go-projects"
 export GOROOT="/usr/local/opt/go/libexec" # path via %> $(brew --prefix golang)
 [[ -n "${GOPATH}" && -e ${GOPATH}/bin ]] && export PATH="$PATH:${GOROOT}/bin"
 #--------------------------
+
+#--------------------------
+# RUST PROGRAMMING LANGUAGE SETUP
+#--------------------------
+# Installation command:
+# curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+if [ -s "${HOME}/.cargo/env" ]; then
+    export RUSTUP_HOME="${HOME}/.rustup"
+    export CARGO_HOME="${HOME}/.cargo"
+    source "${CARGO_HOME}/env"
+fi
 
 complete -o default -o nospace -F _git_checkout gci
 complete -o default -o nospace -F _git_checkout gco
