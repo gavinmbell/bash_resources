@@ -169,6 +169,21 @@ if [ -s "${HOME}/.cargo/env" ]; then
     export CARGO_HOME="${HOME}/.cargo"
     source "${CARGO_HOME}/env"
 fi
+#--------------------------
+
+#--------------------------
+# GCP Tools
+#--------------------------
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/cue/devtools/google-cloud-sdk/path.bash.inc' ]; then
+    source '/Users/cue/devtools/google-cloud-sdk/path.bash.inc'
+fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/cue/devtools/google-cloud-sdk/completion.bash.inc' ]; then
+    source '/Users/cue/devtools/google-cloud-sdk/completion.bash.inc'
+fi
+#--------------------------
 
 complete -o default -o nospace -F _git_checkout gci
 complete -o default -o nospace -F _git_checkout gco
