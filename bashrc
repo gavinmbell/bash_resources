@@ -132,7 +132,7 @@ export CDPATH=.:..:$HOME/:$PROJECT/
 export ESGF_SITE_ROOT=$PROJECT/esgf-site
 
 #System-wide resources....
-export JAVA_HOME=$(/usr/libexec/java_home)
+export JAVA_HOME=/usr/local/Cellar/openjdk/18.0.1.1/libexec/openjdk.jdk/Contents/Home
 #export ANT_HOME=/usr/share/ant
 #export M2_HOME=/usr/local/maven
 
