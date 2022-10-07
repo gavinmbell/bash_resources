@@ -175,6 +175,9 @@ fi
 #--------------------------
 # GCP Tools
 #--------------------------
+#export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/Downloads/quixotic-spot-340713-334b949d4f41.json"
+export GOOGLE_APPLICATION_CREDENTIALS="${HOME}/.cya/quixotic-spot-340713-3f86222ca475.json"
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/cue/devtools/google-cloud-sdk/path.bash.inc' ]; then
     source '/Users/cue/devtools/google-cloud-sdk/path.bash.inc'
