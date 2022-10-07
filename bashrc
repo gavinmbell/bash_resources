@@ -157,6 +157,7 @@ $( [[ -n "${JRUBY_HOME}" && -e $JRUBY_HOME/bin ]] && echo ":$JRUBY_HOME/bin" || 
 export GOPATH="${PROJECT}/go-projects"
 export GOROOT="/usr/local/opt/go/libexec" # path via %> $(brew --prefix golang)
 [[ -n "${GOPATH}" && -e ${GOPATH}/bin ]] && export PATH="$PATH:${GOROOT}/bin"
+export GO111MODULE=on
 #--------------------------
 
 #--------------------------
