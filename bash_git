@@ -10,7 +10,7 @@ alias gci='git commit'
 alias gco='git checkout'
 alias gls='git branch'
 alias gitweb='git instaweb -d webrick'
-alias gll="git log --graph --pretty=format:'%Cred%h%Creset -[%G?]%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+alias gll="git log --graph --pretty=format:'%Cred%h%Creset -[%G?]%C(yellow)%d%Creset %s %Cgreen(%cD %cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 
 ginfo() {
     if [ -n "$(git symbolic-ref HEAD 2> /dev/null)" ]; then
